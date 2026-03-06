@@ -21,8 +21,17 @@
   --radius:      22px;
   --font:        Georgia, 'Times New Roman', serif;
 }
+:root.light {
+  --bg:    #f5f0e8; --bg2: #ede8df; --text: #1a1520;
+  --muted: rgba(26,21,32,0.52); --glass: rgba(255,255,255,0.55); --glass-b: rgba(232,114,138,0.28);
+}
+:root.light nav { background: rgba(245,240,232,0.96) !important; border-color: rgba(232,114,138,0.28) !important; }
+:root.light footer { background: #e5e0d8; border-color: rgba(232,114,138,0.16); }
+:root.light .glass { background: linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.45) 100%); }
 html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.35s, color 0.35s; }
+.theme-toggle { background:rgba(232,114,138,0.08); border:1px solid var(--pink-border); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; backdrop-filter:blur(10px); transition:background .22s,transform .3s; flex-shrink:0; color:var(--text); }
+.theme-toggle:hover { background:rgba(232,114,138,0.18); transform:rotate(25deg); }
 
 /* ── Animated BG ── */
 body::before {
@@ -57,12 +66,15 @@ nav {
 .nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; letter-spacing: .05em; transition: color .22s; }
 .nav-links a:hover, .nav-links a.active { color: var(--text); }
 .btn-cta {
-  padding: .55rem 1.3rem; background: var(--pink); color: #fff;
-  border: none; border-radius: 50px; font-family: var(--font); font-size: .88rem;
-  cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s;
-  box-shadow: 0 0 20px var(--pink-glow);
+  padding: .55rem 1.3rem;
+  background: linear-gradient(135deg,#e8728a 0%,#cf5a74 55%,#e8728a 100%); background-size:200% 200%;
+  color: #fff; border: none; border-radius: 50px; font-family: var(--font); font-size: .88rem;
+  cursor: pointer; text-decoration: none; position:relative; overflow:hidden;
+  transition: transform .2s, box-shadow .2s, background-position .4s;
+  box-shadow: 0 0 20px var(--pink-glow), inset 0 1px 0 rgba(255,255,255,.28), inset 0 -1px 0 rgba(0,0,0,.18);
 }
-.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 30px var(--pink-glow); }
+.btn-cta::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 100%); border-radius:50px 50px 0 0; pointer-events:none; }
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 30px var(--pink-glow); background-position:100% 100%; }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
 .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -119,7 +131,7 @@ nav {
 .sec-sub { font-size: .95rem; color: var(--muted); margin-top: .8rem; line-height: 1.72; }
 
 /* Glass */
-.glass { background: var(--glass); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1px solid var(--glass-b); border-radius: var(--radius); }
+.glass { background:linear-gradient(135deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.025) 100%); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid var(--glass-b); border-radius:var(--radius); box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.06),0 4px 24px rgba(0,0,0,.12); }
 .glass-hover { transition: transform .12s ease, box-shadow .12s ease; transform-style: preserve-3d; }
 .glass-hover:hover { box-shadow: 0 10px 50px rgba(232,114,138,.14); }
 
@@ -284,7 +296,10 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="signup.html" class="btn-cta">Get Early Access</a></li>
   </ul>
-  <button class="hamburger" id="hbg" onclick="openSidebar()"><span></span><span></span><span></span></button>
+  <div style="display:flex;align-items:center;gap:.75rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">☀️</button>
+    <button class="hamburger" id="hbg" onclick="openSidebar()"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
 <!-- Page header -->
@@ -848,6 +863,16 @@ const sio = new IntersectionObserver(entries=>{
   });
 }, {threshold:.4});
 sections.forEach(s=>sio.observe(s));
+
+/* ── Theme toggle ── */
+(function(){
+  const btn=document.getElementById('themeToggle');
+  const root=document.documentElement;
+  let isLight=false;
+  function apply(){ root.classList.toggle('light',isLight); btn.textContent=isLight?'🌙':'☀️'; }
+  btn.addEventListener('click',()=>{ isLight=!isLight; apply(); });
+  apply();
+})();
 </script>
 </body>
 </html>

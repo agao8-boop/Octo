@@ -24,8 +24,28 @@
   --radius:       22px;
   --font:         Georgia, 'Times New Roman', serif;
 }
+:root.light {
+  --bg:    #f5f0e8;
+  --bg2:   #ede8df;
+  --text:  #1a1520;
+  --muted: rgba(26,21,32,0.52);
+  --glass: rgba(255,255,255,0.55);
+  --glass-b: rgba(232,114,138,0.28);
+}
+:root.light nav.on-hero {
+  background: rgba(245,240,232,0.55) !important;
+  border-color: rgba(232,114,138,0.14) !important;
+}
+:root.light nav.scrolled {
+  background: rgba(245,240,232,0.96) !important;
+  border-color: rgba(232,114,138,0.3) !important;
+}
+:root.light footer { background: #e5e0d8; border-color: rgba(232,114,138,0.16); }
+:root.light .iphone { background: #d4d0cc; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.15), 0 32px 90px rgba(0,0,0,0.22), inset 0 0 0 1.5px rgba(255,255,255,0.6); }
+:root.light .iphone-screen { background: #f0ece4; }
+:root.light .i-statusbar, :root.light .i-title { color: #1a1520; }
 html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.35s, color 0.35s; }
 
 /* ============================================================
    NAV
@@ -64,13 +84,35 @@ nav.scrolled {
 .nav-links a:hover { color: var(--text); }
 .btn-cta {
   padding: 0.58rem 1.35rem;
-  background: var(--pink); color: #fff; border: none; border-radius: 50px;
+  background: linear-gradient(135deg, #e8728a 0%, #cf5a74 60%, #e8728a 100%);
+  background-size: 200% 200%;
+  color: #fff; border: none; border-radius: 50px;
   font-family: var(--font); font-size: 0.88rem; cursor: pointer;
   text-decoration: none; letter-spacing: 0.03em;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 0 22px var(--pink-glow);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, background-position 0.4s;
+  box-shadow: 0 0 22px var(--pink-glow), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(0,0,0,0.18);
 }
-.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 32px var(--pink-glow); }
+.btn-cta::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+  border-radius: 50px 50px 0 0; pointer-events: none;
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 32px var(--pink-glow); background-position: 100% 100%; }
+
+/* Theme toggle */
+.theme-toggle {
+  background: rgba(232,114,138,0.08);
+  border: 1px solid var(--pink-border);
+  border-radius: 50%; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 1rem;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: background 0.22s, transform 0.3s, box-shadow 0.22s;
+  flex-shrink: 0; color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.theme-toggle:hover { background: rgba(232,114,138,0.18); transform: rotate(25deg); box-shadow: 0 4px 16px var(--pink-glow); }
 
 /* Hamburger */
 .hamburger {
@@ -129,10 +171,10 @@ nav.scrolled {
   position: relative; width: 100%; height: 100vh; min-height: 560px;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-#hero-canvas {
+#hero-bg {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  display: block;
 }
+#hero-bg canvas { display: block; width: 100% !important; height: 100% !important; }
 .hero-content {
   position: relative; z-index: 5;
   text-align: center; padding: 2rem; max-width: 720px;
@@ -160,22 +202,38 @@ nav.scrolled {
   animation: fadeUp 1.1s cubic-bezier(.16,1,.3,1) 0.36s both;
 }
 .btn-primary {
-  padding: 0.9rem 2.1rem; background: var(--pink); color: #fff;
-  border: none; border-radius: 50px; font-family: var(--font);
-  font-size: 1rem; cursor: pointer; text-decoration: none;
-  transition: transform 0.22s, box-shadow 0.22s;
-  box-shadow: 0 0 32px var(--pink-glow);
+  padding: 0.9rem 2.1rem;
+  background: linear-gradient(135deg, #e8728a 0%, #cf5a74 55%, #e8728a 100%);
+  background-size: 200% 200%;
+  color: #fff; border: none; border-radius: 50px;
+  font-family: var(--font); font-size: 1rem; cursor: pointer;
+  text-decoration: none; position: relative; overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s, background-position 0.4s;
+  box-shadow: 0 0 32px var(--pink-glow), inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 0 rgba(0,0,0,0.18);
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 44px var(--pink-glow); }
+.btn-primary::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 100%);
+  border-radius: 50px 50px 0 0; pointer-events: none;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 44px var(--pink-glow), inset 0 1px 0 rgba(255,255,255,0.3); background-position: 100% 100%; }
 .btn-ghost {
   padding: 0.9rem 2.1rem;
-  background: rgba(232,114,138,0.09); color: var(--text);
+  background: rgba(232,114,138,0.08); color: var(--text);
   border: 1px solid var(--pink-border); border-radius: 50px;
   font-family: var(--font); font-size: 1rem; cursor: pointer;
-  text-decoration: none; backdrop-filter: blur(10px);
-  transition: background 0.22s, transform 0.22s;
+  text-decoration: none;
+  backdrop-filter: blur(16px) saturate(170%); -webkit-backdrop-filter: blur(16px) saturate(170%);
+  transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.08), 0 2px 12px rgba(232,114,138,0.08);
+  position: relative; overflow: hidden;
 }
-.btn-ghost:hover { background: rgba(232,114,138,0.18); transform: translateY(-3px); }
+.btn-ghost::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  border-radius: 50px 50px 0 0; pointer-events: none;
+}
+.btn-ghost:hover { background: rgba(232,114,138,0.16); transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px rgba(232,114,138,0.1); }
 .scroll-hint {
   position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
   color: var(--muted); font-size: 0.78rem; letter-spacing: 0.12em;
@@ -203,9 +261,13 @@ section { padding: 6rem 2rem; }
 
 /* Glass card */
 .glass {
-  background: var(--glass);
-  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  background: linear-gradient(135deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 100%);
+  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-b); border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.12);
+}
+:root.light .glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.45) 100%);
 }
 .glass-hover {
   transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -270,32 +332,58 @@ section { padding: 6rem 2rem; }
 }
 
 /* iPhone */
-.iphone-wrap { display: flex; justify-content: center; perspective: 1100px; }
+.iphone-wrap { display: flex; justify-content: center; perspective: 1200px; position: relative; }
 .iphone {
-  position: relative; width: 256px; height: 524px;
-  background: #15151f;
-  border-radius: 46px;
-  border: 1.5px solid rgba(232,114,138,0.45);
+  position: relative; width: 262px; height: 534px;
+  background: linear-gradient(160deg, #1e1e2a 0%, #141420 40%, #1c1c28 100%);
+  border-radius: 50px;
   box-shadow:
-    0 0 0 1px rgba(0,0,0,0.6),
-    0 32px 90px rgba(0,0,0,0.65),
-    0 0 70px rgba(232,114,138,0.12),
-    inset 0 0 0 1.5px rgba(255,255,255,0.04);
-  overflow: hidden;
-  transform: perspective(1100px) rotateY(-9deg) rotateX(2deg);
+    0 0 0 1.5px rgba(255,255,255,0.08),
+    0 0 0 2.5px rgba(0,0,0,0.9),
+    0 40px 100px rgba(0,0,0,0.72),
+    0 0 80px rgba(232,114,138,0.1),
+    inset 0 0 0 1px rgba(255,255,255,0.07),
+    inset 1px 0 0 rgba(255,255,255,0.04),
+    inset -1px 0 0 rgba(255,255,255,0.02);
+  transform: perspective(1200px) rotateY(-10deg) rotateX(2.5deg);
   transition: transform 0.55s cubic-bezier(.16,1,.3,1);
   transform-style: preserve-3d;
   cursor: default;
 }
+/* Side buttons */
 .iphone::before {
   content: '';
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 112px; height: 28px;
-  background: #15151f; border-radius: 0 0 20px 20px; z-index: 20;
+  position: absolute; left: -3.5px; top: 110px;
+  width: 3.5px; height: 36px;
+  background: linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #2a2a3a 100%);
+  border-radius: 2px 0 0 2px;
+  box-shadow: -1px 0 4px rgba(0,0,0,0.6);
+}
+.iphone::after {
+  content: '';
+  position: absolute; right: -3.5px; top: 140px;
+  width: 3.5px; height: 60px;
+  background: linear-gradient(180deg, #2a2a3a 0%, #1a1a28 50%, #2a2a3a 100%);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 1px 0 4px rgba(0,0,0,0.6);
 }
 .iphone-screen {
-  position: absolute; inset: 0; border-radius: 46px;
-  overflow: hidden; background: #0a0a14;
+  position: absolute; inset: 8px; border-radius: 43px;
+  overflow: hidden; background: #080812;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.8);
+}
+/* Dynamic Island */
+.iphone-island {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 90px; height: 26px;
+  background: #000; border-radius: 20px; z-index: 30;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+/* Screen edge shine */
+.iphone-shine {
+  position: absolute; top: 8px; left: 8px; right: 8px; height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%);
+  border-radius: 43px 43px 0 0; z-index: 25; pointer-events: none;
 }
 .iphone-step {
   position: absolute; inset: 0;
@@ -551,20 +639,23 @@ footer {
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="signup.html" class="btn-cta">Get Early Access</a></li>
   </ul>
-  <button class="hamburger" id="hbg" onclick="openSidebar()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">☀️</button>
+    <button class="hamburger" id="hbg" onclick="openSidebar()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- ============================================================
      HERO
 ============================================================ -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
+  <div id="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-brand">Octo</div>
-    <p class="hero-tag">Your native-AI property management firm.</p>
-    <p class="hero-sub">Built for property owners. Powered by AI.</p>
+    <p class="hero-tag">AI property management — without the property manager.</p>
+    <p class="hero-sub">Built for owners. 24/7. From $17/door.</p>
     <div class="hero-btns">
       <a href="signup.html" class="btn-primary">Get Early Access</a>
       <a href="features.html" class="btn-ghost">See How It Works</a>
@@ -579,8 +670,8 @@ footer {
 <section id="problem">
   <div class="container">
     <p class="sec-label">The Problem</p>
-    <h2 class="sec-title rv">Property management<br>is a headache.</h2>
-    <p class="sec-sub rv d1">Self-managing is inefficient. Property managers are costly, work business hours only, and add a 10% fee on top of everything. There has to be a better way.</p>
+    <h2 class="sec-title rv">Property management<br>is broken.</h2>
+    <p class="sec-sub rv d1">Self-managing wastes hours. Traditional PMs cost 8–12% on top of everything, and only work 9–5.</p>
 
     <div class="stats-grid">
       <div class="glass glass-hover stat-card fa1 rv"><span class="stat-num">8.5%</span><p class="stat-lbl">Average PM fees on gross rents</p></div>
@@ -613,11 +704,13 @@ footer {
       <!-- iPhone mockup -->
       <div class="iphone-wrap rv">
         <div class="iphone" id="iphone">
+          <div class="iphone-island"></div>
+          <div class="iphone-shine"></div>
           <div class="iphone-screen">
 
             <!-- Step 1: Detect -->
             <div class="iphone-step active" id="s1">
-              <div class="i-statusbar"><span>9:43</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
+              <div class="i-statusbar" style="padding-top:50px;"><span>9:43</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
               <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Octo</span></div>
               <div class="i-body">
                 <div class="i-pill">
@@ -635,7 +728,7 @@ footer {
 
             <!-- Step 2: Source & Book -->
             <div class="iphone-step" id="s2">
-              <div class="i-statusbar"><span>9:44</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
+              <div class="i-statusbar" style="padding-top:50px;"><span>9:44</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
               <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Sourcing</span></div>
               <div class="i-body">
                 <div style="font-size:8.5px;color:var(--muted);font-family:-apple-system,sans-serif;margin-bottom:8px;">3 contractors matched nearby</div>
@@ -656,7 +749,7 @@ footer {
 
             <!-- Step 3: Done -->
             <div class="iphone-step" id="s3">
-              <div class="i-statusbar"><span>2:17</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
+              <div class="i-statusbar" style="padding-top:50px;"><span>2:17</span><span style="font-size:8px;">●●●●&nbsp;WiFi</span></div>
               <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">All Clear ✓</span></div>
               <div class="i-body" style="display:flex;flex-direction:column;align-items:stretch;justify-content:center;">
                 <div class="i-done-circle">✓</div>
@@ -715,7 +808,7 @@ footer {
   <div class="container">
     <p class="sec-label">The Platform</p>
     <h2 class="sec-title rv">One platform.<br>Everything handled.</h2>
-    <p class="sec-sub rv d1">Eight AI agents covering every property management workflow. No property manager required.</p>
+    <p class="sec-sub rv d1">Eight AI agents. Every workflow. No PM required.</p>
 
     <div class="wf-grid">
       <a href="features.html#market" class="glass glass-hover wf-card fa1 rv" style="text-decoration:none;"><span class="wf-icon">📣</span><div class="wf-title">Market</div><p class="wf-desc">AI lists units, schedules self-guided tours, and fills vacancies 24/7.</p></a>
@@ -741,7 +834,7 @@ footer {
   <div class="container">
     <p class="sec-label">Market Opportunity</p>
     <h2 class="sec-title rv">A massive,<br>underserved market.</h2>
-    <p class="sec-sub rv d1" style="margin:0 auto 0;">The U.S. property management market is large, fragmented, and ripe for AI disruption.</p>
+    <p class="sec-sub rv d1" style="margin:0 auto 0;">Large, fragmented, and ripe for AI disruption.</p>
     <div class="mkt-nums">
       <div class="mkt-num rv"><span class="big">$88B</span><p class="lbl">U.S. property mgmt market size</p></div>
       <div class="mkt-num rv d1"><span class="big">20M+</span><p class="lbl">Rental units self-managed today</p></div>
@@ -757,7 +850,7 @@ footer {
   <div class="container">
     <p class="sec-label">Why Octo Wins</p>
     <h2 class="sec-title rv">Built for owners.<br>Not for managers.</h2>
-    <p class="sec-sub rv d1">Legacy tools were built for property managers. Octo is built for property owners — with AI at the core.</p>
+    <p class="sec-sub rv d1">Legacy tools built for PMs. Octo is built for owners — AI at the core.</p>
 
     <div class="tbl-wrap glass rv">
       <table>
@@ -805,7 +898,7 @@ footer {
     <div class="glass cta-box rv">
       <p class="sec-label" style="text-align:center;">Get Started</p>
       <h2 class="cta-title">Ready to fire your<br>property manager?</h2>
-      <p class="cta-sub">Join property owners getting early access to Octo. $17/door/month. No PM required.</p>
+      <p class="cta-sub">$17/door/month. No PM required. Cancel anytime.</p>
       <div class="cta-btns">
         <a href="signup.html" class="btn-primary">Get Early Access</a>
         <a href="pricing.html" class="btn-ghost">View Pricing</a>
@@ -832,121 +925,46 @@ footer {
 <!-- ============================================================
      SCRIPTS
 ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="./liquid-ether.js"></script>
 <script>
-/* ── WebGL Fluid Hero ── */
+/* ── LiquidEther fluid hero ── */
 (function(){
-  const cv = document.getElementById('hero-canvas');
-  const gl = cv.getContext('webgl') || cv.getContext('experimental-webgl');
-  if (!gl) return;
-
-  let uTime, uMouse, uRes;
-
-  function resize(){
-    cv.width  = cv.offsetWidth;
-    cv.height = cv.offsetHeight;
-    gl.viewport(0,0,cv.width,cv.height);
-    if(uRes) gl.uniform2f(uRes, cv.width, cv.height);
-  }
-
-  const VERT = `
-    attribute vec2 p;
-    void main(){ gl_Position = vec4(p,0.,1.); }
-  `;
-  const FRAG = `
-    precision highp float;
-    uniform float time;
-    uniform vec2  mouse;
-    uniform vec2  res;
-
-    vec2 h22(vec2 p){
-      p = vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));
-      return -1.+2.*fract(sin(p)*43758.5453);
-    }
-    float gn(vec2 p){
-      vec2 i=floor(p), f=fract(p), u=f*f*(3.-2.*f);
-      return mix(
-        mix(dot(h22(i),f), dot(h22(i+vec2(1,0)),f-vec2(1,0)),u.x),
-        mix(dot(h22(i+vec2(0,1)),f-vec2(0,1)),dot(h22(i+vec2(1,1)),f-vec2(1)),u.x),
-        u.y);
-    }
-    float fbm(vec2 p){
-      float v=0.,a=.5;
-      mat2 r=mat2(.8,.6,-.6,.8);
-      for(int i=0;i<5;i++){ v+=a*gn(p); p=r*p*2.1+vec2(100.); a*=.48; }
-      return v;
-    }
-    void main(){
-      vec2 uv = gl_FragCoord.xy/res;
-      uv.y = 1.-uv.y;
-      float t = time*.12;
-      vec2 m = mouse; m.y=1.-m.y;
-      vec2 P = uv*3.;
-      vec2 q = vec2(fbm(P+t), fbm(P+vec2(1.7,9.2)+t*.9));
-      q += (m-.5)*.65;
-      vec2 r2 = vec2(fbm(P+q+vec2(1.7,9.2)+t*.6), fbm(P+q+vec2(8.3,2.8)+t*.5));
-      r2 += (m-.5)*.32;
-      float f = fbm(P+r2*1.4)*.5+.5;
-
-      vec3 dark  = vec3(.028,.022,.058);
-      vec3 deep  = vec3(.075,.030,.110);
-      vec3 pink  = vec3(.910,.447,.541);
-      vec3 lpink = vec3(1.00,.624,.757);
-
-      vec3 col = dark;
-      col = mix(col, deep,        smoothstep(.22,.50,f));
-      col = mix(col, pink*.52,    smoothstep(.44,.68,f));
-      col = mix(col, pink,        smoothstep(.64,.84,f));
-      col = mix(col, lpink,       smoothstep(.80,1.00,f));
-
-      float md  = length(uv-m);
-      float ray = exp(-md*4.4)*.38;
-      col += pink*ray*(0.5+f*0.5);
-
-      float vig = 1.-length((uv-.5)*1.65);
-      col *= .32+.68*clamp(vig,0.,1.);
-
-      gl_FragColor = vec4(col,1.);
-    }
-  `;
-
-  function mkShader(t,s){
-    const sh=gl.createShader(t);
-    gl.shaderSource(sh,s); gl.compileShader(sh);
-    return sh;
-  }
-  const prog=gl.createProgram();
-  gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,VERT));
-  gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,FRAG));
-  gl.linkProgram(prog); gl.useProgram(prog);
-
-  const buf=gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
-  const loc=gl.getAttribLocation(prog,'p');
-  gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-
-  uTime  = gl.getUniformLocation(prog,'time');
-  uMouse = gl.getUniformLocation(prog,'mouse');
-  uRes   = gl.getUniformLocation(prog,'res');
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  let mx=.5,my=.5,tx=.5,ty=.5;
-  document.addEventListener('mousemove', e=>{
-    tx = e.clientX/window.innerWidth;
-    ty = e.clientY/window.innerHeight;
+  const heroBg = document.getElementById('hero-bg');
+  if (!heroBg) return;
+  const le = initLiquidEther(heroBg, {
+    colors:           ['#5227FF','#FF9FFC','#B19EEF'],
+    mouseForce:       25,
+    cursorSize:       80,
+    isViscous:        true,
+    viscous:          52,
+    iterationsViscous: 44,
+    iterationsPoisson: 26,
+    isBounce:         true,
+    autoDemo:         true,
+    autoSpeed:        0.6,
+    autoIntensity:    2,
+    takeoverDuration: 0.25,
+    autoResumeDelay:  3000,
+    autoRampDuration: 0.6,
+    resolution:       0.5,
+    dt:               0.014,
+    BFECC:            true
   });
+})();
 
-  const t0 = performance.now();
-  (function loop(){
-    mx+=(tx-mx)*.055; my+=(ty-my)*.055;
-    gl.uniform1f(uTime,(performance.now()-t0)/1000);
-    gl.uniform2f(uMouse,mx,my);
-    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
-    requestAnimationFrame(loop);
-  })();
+/* ── Light/dark theme toggle ── */
+(function(){
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  let isLight = false;
+  function apply(){
+    root.classList.toggle('light', isLight);
+    btn.textContent = isLight ? '🌙' : '☀️';
+    btn.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+  btn.addEventListener('click', ()=>{ isLight = !isLight; apply(); });
+  apply();
 })();
 
 /* ── Nav scroll state ── */
