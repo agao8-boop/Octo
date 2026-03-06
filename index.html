@@ -160,18 +160,21 @@ nav {
    HERO
 ============================================================ */
 #hero {
-  position: relative; width: 100vw; height: 100vh; min-height: 560px;
+  position: relative; width: 100%; height: 100vh; min-height: 560px;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
-  left: 50%; transform: translateX(-50%);
 }
 #hero-bg {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+  position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden;
 }
-#hero-bg canvas { display: block; width: 100% !important; height: 100% !important; }
+#hero-bg canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100% !important; height: 100% !important; display: block;
+}
 .hero-content {
   position: relative; z-index: 5;
   text-align: center; padding: 2rem; max-width: 760px;
-  background: none;
+  background: none; pointer-events: auto;
+  width: 100%;
 }
 .hero-brand {
   font-size: clamp(4.5rem, 11vw, 9rem);
@@ -650,7 +653,7 @@ footer {
      HERO
 ============================================================ -->
 <section id="hero">
-  <div id="hero-bg"></div>
+  <div id="hero-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;"></div>
   <div class="hero-content">
     <div class="hero-brand">Octo</div>
     <p class="hero-tag">Your native-AI property management firm.</p>
