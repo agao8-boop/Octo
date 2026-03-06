@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Octo — Features</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:        #e8728a;
+  --pink-dim:    rgba(232,114,138,0.11);
+  --pink-border: rgba(232,114,138,0.26);
+  --pink-glow:   rgba(232,114,138,0.44);
+  --bg:          #07070f;
+  --bg2:         #0c0c18;
+  --text:        #f3eeff;
+  --muted:       rgba(243,238,255,0.50);
+  --glass:       rgba(255,255,255,0.035);
+  --glass-b:     rgba(232,114,138,0.18);
+  --radius:      22px;
+  --font:        Georgia, 'Times New Roman', serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* ── Animated BG ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(232,114,138,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 70%, rgba(140,70,180,0.08) 0%, transparent 60%),
+    linear-gradient(160deg, #07070f 0%, #0d0b18 100%);
+  animation: bgdrift 14s ease-in-out infinite alternate;
+}
+@keyframes bgdrift {
+  0%   { background-position: 20% 30%, 80% 70%, 0% 0%; }
+  100% { background-position: 28% 38%, 72% 62%, 0% 0%; }
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(7,7,15,0.82);
+  backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px);
+  border-bottom: 1px solid rgba(232,114,138,0.22);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.4rem;
+  text-decoration: none; color: var(--text);
+  font-size: 1.3rem; font-weight: 700; letter-spacing: .02em;
+}
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; letter-spacing: .05em; transition: color .22s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.btn-cta {
+  padding: .55rem 1.3rem; background: var(--pink); color: #fff;
+  border: none; border-radius: 50px; font-family: var(--font); font-size: .88rem;
+  cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 0 20px var(--pink-glow);
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 5px 30px var(--pink-glow); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1999; opacity: 0; pointer-events: none; transition: opacity .35s; }
+.sidebar-overlay.open { opacity: 1; pointer-events: all; }
+.sidebar { position: fixed; top: 0; right: -105%; width: min(82vw,300px); height: 100vh; background: rgba(7,7,15,.97); backdrop-filter: blur(32px); border-left: 1px solid var(--glass-b); z-index: 2000; transition: right .42s cubic-bezier(.4,0,.2,1); padding: 5rem 1.75rem 2rem; display: flex; flex-direction: column; gap: .25rem; }
+.sidebar.open { right: 0; }
+.sidebar a { color: var(--text); text-decoration: none; font-size: 1.15rem; padding: .85rem .5rem; border-bottom: 1px solid rgba(232,114,138,.1); transition: color .2s, padding-left .2s; display: block; }
+.sidebar a:hover { color: var(--pink); padding-left: 1rem; }
+.sidebar .sb-cta { margin-top: 1.5rem; background: var(--pink); color: #fff; border-radius: 50px; text-align: center; padding: .85rem; border-bottom: none; }
+.sidebar-close { position: absolute; top: 1.4rem; right: 1.4rem; background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; }
+
+/* ── Page Header ── */
+.page-header {
+  padding: 9rem 2rem 5rem;
+  text-align: center;
+}
+.ph-label { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--pink); margin-bottom: .85rem; }
+.ph-title { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.15; }
+.ph-sub { font-size: 1rem; color: var(--muted); margin: 1rem auto 0; max-width: 520px; line-height: 1.72; }
+
+/* ── Section nav tabs ── */
+.wf-nav {
+  display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap;
+  padding: 0 2rem 3rem; position: sticky; top: 64px; z-index: 100;
+}
+.wf-tab {
+  padding: .45rem 1.1rem;
+  background: rgba(232,114,138,.06); border: 1px solid rgba(232,114,138,.14);
+  border-radius: 50px; color: var(--muted); font-family: var(--font);
+  font-size: .82rem; cursor: pointer; text-decoration: none;
+  transition: background .22s, color .22s, border-color .22s;
+}
+.wf-tab:hover, .wf-tab.active {
+  background: rgba(232,114,138,.16); border-color: var(--pink-border); color: var(--text);
+}
+
+/* ── Shared section ── */
+.wf-section { padding: 5rem 2rem; }
+.wf-section:nth-child(even) { background: var(--bg2); }
+.container { max-width: 1100px; margin: 0 auto; }
+
+.wf-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center; margin-top: 3.5rem;
+}
+.wf-layout.flip { direction: rtl; }
+.wf-layout.flip > * { direction: ltr; }
+
+.sec-label { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--pink); margin-bottom: .85rem; }
+.sec-title { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 700; line-height: 1.2; color: var(--text); }
+.sec-sub { font-size: .95rem; color: var(--muted); margin-top: .8rem; line-height: 1.72; }
+
+/* Glass */
+.glass { background: var(--glass); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1px solid var(--glass-b); border-radius: var(--radius); }
+.glass-hover { transition: transform .12s ease, box-shadow .12s ease; transform-style: preserve-3d; }
+.glass-hover:hover { box-shadow: 0 10px 50px rgba(232,114,138,.14); }
+
+/* Reveal */
+.rv { opacity: 0; transform: translateY(36px); transition: opacity .82s cubic-bezier(.16,1,.3,1), transform .82s cubic-bezier(.16,1,.3,1); }
+.rv.in { opacity: 1; transform: none; }
+.d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s}
+
+/* Float */
+@keyframes f1 { 0%,100%{transform:translateY(0) rotate(0deg)} 45%{transform:translateY(-9px) rotate(.4deg)} }
+@keyframes f2 { 0%,100%{transform:translateY(0) rotate(0deg)} 38%{transform:translateY(-7px) rotate(-.35deg)} 70%{transform:translateY(-12px) rotate(.3deg)} }
+.fa1{animation:f1 6.5s ease-in-out infinite} .fa2{animation:f2 8s ease-in-out infinite}
+
+/* ── Workflow Detail Cards ── */
+.wf-text { }
+.detail-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: .9rem; }
+.detail-item { display: flex; gap: .85rem; align-items: flex-start; }
+.detail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); flex-shrink: 0; margin-top: .45rem; }
+.detail-item p { font-size: .92rem; color: var(--muted); line-height: 1.62; }
+.detail-item strong { color: var(--text); }
+
+.phase-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+.phase-card { padding: 1.2rem 1rem; border-radius: 14px; }
+.phase-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--pink); margin-bottom: .4rem; }
+.phase-title { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
+.phase-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+/* ── Visual Box (non-iPhone) ── */
+.vis-box { border-radius: var(--radius); padding: 2rem; min-height: 320px; display: flex; flex-direction: column; justify-content: space-between; }
+.vis-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+.vis-row { display: flex; align-items: center; gap: .75rem; padding: .75rem .9rem; border-radius: 12px; background: rgba(232,114,138,.05); border: 1px solid rgba(232,114,138,.1); margin-bottom: .6rem; font-size: .88rem; color: var(--muted); }
+.vis-row .vis-icon { font-size: 1.1rem; flex-shrink: 0; }
+.vis-row strong { color: var(--text); }
+.vis-badge { display: inline-block; padding: .25rem .7rem; border-radius: 50px; font-size: .72rem; font-weight: 600; letter-spacing: .06em; }
+.badge-green { background: rgba(80,220,130,.15); color: #50dc82; border: 1px solid rgba(80,220,130,.25); }
+.badge-pink  { background: rgba(232,114,138,.15); color: var(--pink); border: 1px solid rgba(232,114,138,.3); }
+.vis-bar-wrap { margin-top: 1rem; }
+.vis-bar-label { display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); margin-bottom: .3rem; }
+.vis-bar { height: 6px; background: rgba(255,255,255,.07); border-radius: 6px; overflow: hidden; }
+.vis-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--pink), #ff9fbc); }
+
+/* ── iPhone (shared) ── */
+.iphone-wrap { display: flex; justify-content: center; perspective: 1100px; }
+.iphone {
+  position: relative; width: 248px; height: 510px; background: #15151f;
+  border-radius: 46px; border: 1.5px solid rgba(232,114,138,.44);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 30px 80px rgba(0,0,0,.6), 0 0 65px rgba(232,114,138,.12), inset 0 0 0 1.5px rgba(255,255,255,.04);
+  overflow: hidden;
+  transform: perspective(1100px) rotateY(-9deg) rotateX(2deg);
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+  transform-style: preserve-3d; cursor: default;
+}
+.iphone::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:108px; height:27px; background:#15151f; border-radius:0 0 18px 18px; z-index:20; }
+.iphone-screen { position:absolute; inset:0; border-radius:46px; overflow:hidden; background:#0a0a14; }
+.i-statusbar { display:flex; justify-content:space-between; align-items:center; padding:4px 18px 7px; font-size:10px; color:rgba(243,238,255,.8); font-family:-apple-system,sans-serif; }
+.i-header { display:flex; align-items:center; gap:7px; padding:5px 15px 9px; border-bottom:1px solid rgba(232,114,138,.13); }
+.i-logo { font-size:16px; }
+.i-title { font-family:-apple-system,sans-serif; font-size:14px; font-weight:600; color:var(--text); }
+.i-body { flex:1; padding:11px 13px; overflow:hidden; }
+.i-screen { display:flex; flex-direction:column; padding-top:37px; height:100%; }
+.i-pill { background:rgba(232,114,138,.1); border:1px solid rgba(232,114,138,.3); border-radius:10px; padding:9px 11px; margin-bottom:8px; }
+.i-pill-label { font-size:7.5px; color:var(--pink); letter-spacing:.12em; text-transform:uppercase; font-family:-apple-system,sans-serif; margin-bottom:2px; }
+.i-pill-title { font-size:11.5px; font-weight:600; color:var(--text); font-family:-apple-system,sans-serif; }
+.i-pill-sub { font-size:8.5px; color:var(--muted); font-family:-apple-system,sans-serif; }
+.i-row { display:flex; align-items:center; gap:7px; font-size:9px; color:var(--muted); font-family:-apple-system,sans-serif; margin-bottom:6px; }
+.i-dot { width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; flex-shrink:0; }
+.i-dot.done { background:var(--pink); color:#fff; }
+.i-dot.pend { background:rgba(232,114,138,.25); }
+.i-dot.idle { background:rgba(255,255,255,.05); }
+.i-note { font-size:8px; color:var(--muted); font-family:-apple-system,sans-serif; padding:6px 8px; background:rgba(255,255,255,.02); border-radius:7px; line-height:1.45; margin-top:8px; }
+.i-contractor { background:rgba(232,114,138,.08); border:1px solid rgba(232,114,138,.35); border-radius:9px; padding:9px 10px; margin-bottom:6px; }
+.i-c-name { font-size:11px; font-weight:600; color:var(--text); font-family:-apple-system,sans-serif; }
+.i-c-role { font-size:8.5px; color:var(--muted); font-family:-apple-system,sans-serif; }
+.i-c-stars { font-size:10px; color:#ffd060; margin:3px 0; }
+.i-c-row { display:flex; justify-content:space-between; font-size:8px; color:var(--muted); font-family:-apple-system,sans-serif; }
+.i-done-circle { width:52px; height:52px; background:rgba(232,114,138,.14); border:2px solid var(--pink); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; margin:8px auto 6px; }
+.i-done-title { font-size:12px; font-weight:600; color:var(--text); font-family:-apple-system,sans-serif; text-align:center; }
+.i-done-sub { font-size:9px; color:var(--muted); font-family:-apple-system,sans-serif; text-align:center; margin-bottom:9px; }
+.i-stat { display:flex; justify-content:space-between; font-size:9px; font-family:-apple-system,sans-serif; padding:5px 7px; background:rgba(255,255,255,.02); border-radius:6px; margin-bottom:4px; }
+.i-stat span:last-child { color:var(--text); }
+.i-stat .pink { color:var(--pink); font-weight:600; }
+.step-dots { display:flex; justify-content:center; gap:6px; padding:7px 0; }
+.step-dot { width:6px; height:6px; border-radius:50%; background:rgba(232,114,138,.28); transition:background .3s; }
+.step-dot.on { background:var(--pink); }
+
+/* Listing card for Market/Screen */
+.i-listing { background:rgba(255,255,255,.03); border:1px solid rgba(232,114,138,.12); border-radius:9px; padding:9px 10px; margin-bottom:6px; }
+.i-listing-title { font-size:10px; font-weight:600; color:var(--text); font-family:-apple-system,sans-serif; }
+.i-listing-sub { font-size:8px; color:var(--muted); font-family:-apple-system,sans-serif; margin:2px 0; }
+.i-listing-row { display:flex; justify-content:space-between; align-items:center; }
+.i-listing-price { font-size:10px; color:var(--pink); font-weight:600; font-family:-apple-system,sans-serif; }
+.i-tag { display:inline-block; padding:1px 6px; border-radius:50px; font-size:7.5px; font-family:-apple-system,sans-serif; }
+.tag-green { background:rgba(80,220,130,.15); color:#50dc82; }
+.tag-blue  { background:rgba(100,160,255,.15); color:#88b4ff; }
+.tag-pink  { background:rgba(232,114,138,.15); color:var(--pink); }
+
+/* ── Stats bar at top of feature ── */
+.feat-stats { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1.8rem; }
+.feat-stat { padding:.9rem 1.3rem; border-radius:14px; text-align:center; min-width:110px; }
+.feat-stat .n { font-size:1.6rem; font-weight:900; color:var(--pink); display:block; }
+.feat-stat .l { font-size:.75rem; color:var(--muted); margin-top:.2rem; }
+
+/* Compliance risk row */
+.risk-row { display:flex; align-items:center; justify-content:space-between; gap:.6rem; padding:.7rem .9rem; border-radius:10px; background:rgba(232,114,138,.04); border:1px solid rgba(232,114,138,.1); margin-bottom:.6rem; }
+.risk-name { font-size:.82rem; color:var(--text); flex:1; }
+.risk-bar { width:80px; height:5px; background:rgba(255,255,255,.07); border-radius:5px; overflow:hidden; }
+.risk-fill { height:100%; border-radius:5px; }
+.risk-hi  { background:#e8728a; }
+.risk-med { background:#e8b472; }
+.risk-lo  { background:#72e8a0; }
+
+/* ── Footer ── */
+footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:2.4rem 2rem; }
+.foot-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.4rem; }
+.foot-logo { display:flex; align-items:center; gap:.45rem; color:var(--text); text-decoration:none; font-size:1.1rem; font-weight:700; }
+.foot-links { display:flex; gap:1.4rem; list-style:none; }
+.foot-links a { color:var(--muted); text-decoration:none; font-size:.85rem; transition:color .22s; }
+.foot-links a:hover { color:var(--pink); }
+.foot-copy { color:rgba(243,238,255,.22); font-size:.78rem; }
+
+/* ── CTA banner ── */
+.cta-banner { padding:5rem 2rem; text-align:center; background:radial-gradient(ellipse at 50% 60%,rgba(232,114,138,.07) 0%,transparent 68%); }
+.cta-banner h2 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; }
+.cta-banner p { color:var(--muted); margin:1rem 0 2rem; font-size:.97rem; line-height:1.7; }
+.cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+.btn-primary { padding:.88rem 2rem; background:var(--pink); color:#fff; border:none; border-radius:50px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; transition:transform .22s,box-shadow .22s; box-shadow:0 0 30px var(--pink-glow); }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 44px var(--pink-glow); }
+.btn-ghost { padding:.88rem 2rem; background:rgba(232,114,138,.09); color:var(--text); border:1px solid var(--pink-border); border-radius:50px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; backdrop-filter:blur(10px); transition:background .22s,transform .22s; }
+.btn-ghost:hover { background:rgba(232,114,138,.18); transform:translateY(-3px); }
+
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .wf-layout { grid-template-columns:1fr; gap:2.5rem; }
+  .wf-layout.flip { direction:ltr; }
+  .phase-row { grid-template-columns:1fr; }
+  .foot-inner { flex-direction:column; text-align:center; }
+  .foot-links { justify-content:center; }
+}
+@media (max-width:440px) {
+  .feat-stats { gap:1rem; }
+  .iphone { width:215px; height:442px; }
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  <a href="index.html">Home</a>
+  <a href="features.html" class="active">Features</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="signup.html" class="sb-cta btn-cta">Get Early Access</a>
+</aside>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span style="font-size:1.5rem;">🐙</span> Octo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="features.html" class="active">Features</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="signup.html" class="btn-cta">Get Early Access</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" onclick="openSidebar()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Page header -->
+<div class="page-header">
+  <p class="ph-label">The Platform</p>
+  <h1 class="ph-title rv">Eight AI agents.<br>Every workflow covered.</h1>
+  <p class="ph-sub rv d1">Octo replaces the chaos of property management with a coordinated team of AI agents — available 24/7, at a fraction of the cost.</p>
+</div>
+
+<!-- Tab nav -->
+<div class="wf-nav">
+  <a href="#market"   class="wf-tab">📣 Market</a>
+  <a href="#screen"   class="wf-tab">🔍 Screen</a>
+  <a href="#lease"    class="wf-tab">📝 Lease</a>
+  <a href="#collect"  class="wf-tab">💰 Collect</a>
+  <a href="#maintain" class="wf-tab">🔧 Maintain</a>
+  <a href="#comply"   class="wf-tab">⚖️ Comply</a>
+  <a href="#report"   class="wf-tab">📊 Report</a>
+  <a href="#document" class="wf-tab">🗂️ Document</a>
+</div>
+
+<!-- ================================================================
+     1. MARKET
+================================================================ -->
+<section class="wf-section" id="market">
+  <div class="container">
+    <div class="wf-layout">
+      <!-- Text -->
+      <div class="wf-text rv">
+        <p class="sec-label">Market</p>
+        <h2 class="sec-title">Find tenants.<br>Fill vacancies. 24/7.</h2>
+        <p class="sec-sub">Octo lists your units across every major platform, schedules self-guided tours via smart locks, and responds to inquiries around the clock — so you never miss a lead.</p>
+
+        <div class="feat-stats">
+          <div class="glass feat-stat"><span class="n">24/7</span><p class="l">Inquiry response</p></div>
+          <div class="glass feat-stat"><span class="n">4×</span><p class="l">Faster setup vs legacy tools</p></div>
+          <div class="glass feat-stat"><span class="n">60%</span><p class="l">Cost reduction</p></div>
+        </div>
+
+        <ul class="detail-list" style="margin-top:1.8rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>AI-written listings</strong> — optimised headlines, descriptions, and photos distributed to Zillow, Apartments.com, and more.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Self-guided tours</strong> — smart lock integration lets prospects tour on their schedule, 7 days a week.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Instant responses</strong> — AI handles every inquiry, follow-up, and scheduling request so no lead goes cold.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Vacancy risk scoring</strong> — Octo surfaces units likely to become vacant 60 days out so you can act early.</p></li>
+        </ul>
+
+        <div class="phase-row" style="margin-top:2rem;">
+          <div class="glass phase-card"><div class="phase-label">Today</div><div class="phase-title">Manual listings</div><div class="phase-desc">PM writes listings, conducts every tour, and evaluates applications manually.</div></div>
+          <div class="glass phase-card" style="border-color:var(--pink-border);background:rgba(232,114,138,.05);"><div class="phase-label" style="color:var(--pink);">V1 · Octo</div><div class="phase-title">AI-listed, self-tour</div><div class="phase-desc">AI agent lists units and schedules self-guided tours. Tenant and owner sign lease digitally.</div></div>
+          <div class="glass phase-card"><div class="phase-label">V2 · 2030+</div><div class="phase-title">Agent-negotiated</div><div class="phase-desc">Tenant and landlord AI agents negotiate and sign leases automatically.</div></div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="iphone-wrap rv d2 fa2">
+        <div class="iphone" data-iphone>
+          <div class="iphone-screen">
+            <div class="i-screen">
+              <div class="i-statusbar"><span>10:21</span><span style="font-size:8px;">●●●● WiFi</span></div>
+              <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Listings</span></div>
+              <div class="i-body">
+                <div style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;margin-bottom:7px;">3 active listings · 12 inquiries today</div>
+
+                <div class="i-listing">
+                  <div class="i-listing-row">
+                    <div class="i-listing-title">Unit 4B — 2BR/1BA</div>
+                    <span class="i-tag tag-green">Live</span>
+                  </div>
+                  <div class="i-listing-sub">Brooklyn, NY · 850 sqft</div>
+                  <div class="i-listing-row" style="margin-top:4px;">
+                    <div class="i-listing-price">$2,450 /mo</div>
+                    <span style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;">4 inquiries</span>
+                  </div>
+                </div>
+
+                <div class="i-listing">
+                  <div class="i-listing-row">
+                    <div class="i-listing-title">Unit 2A — Studio</div>
+                    <span class="i-tag tag-blue">Tour Today 2pm</span>
+                  </div>
+                  <div class="i-listing-sub">Brooklyn, NY · 490 sqft</div>
+                  <div class="i-listing-row" style="margin-top:4px;">
+                    <div class="i-listing-price">$1,650 /mo</div>
+                    <span style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;">7 inquiries</span>
+                  </div>
+                </div>
+
+                <div style="padding:8px 9px;background:rgba(232,114,138,.05);border:1px solid rgba(232,114,138,.12);border-radius:9px;font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;line-height:1.5;">
+                  🤖 <strong style="color:var(--text);">AI</strong>: Unit 2A has 7 inquiries. Suggest raising list price by $75. Expected days-to-lease: 4.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     2. SCREEN
+================================================================ -->
+<section class="wf-section" id="screen" style="background:var(--bg2);">
+  <div class="container">
+    <div class="wf-layout flip">
+      <!-- Visual -->
+      <div class="iphone-wrap rv fa1">
+        <div class="iphone" data-iphone style="transform:perspective(1100px) rotateY(9deg) rotateX(2deg);">
+          <div class="iphone-screen">
+            <div class="i-screen">
+              <div class="i-statusbar"><span>11:05</span><span style="font-size:8px;">●●●● WiFi</span></div>
+              <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Applicants</span></div>
+              <div class="i-body">
+                <div style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;margin-bottom:7px;">Unit 2A · 3 applicants reviewed</div>
+
+                <div style="background:rgba(80,220,130,.07);border:1px solid rgba(80,220,130,.22);border-radius:9px;padding:9px 10px;margin-bottom:6px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:10.5px;font-weight:600;color:var(--text);font-family:-apple-system,sans-serif;">Jordan K.</span>
+                    <span class="i-tag tag-green">Score 92</span>
+                  </div>
+                  <div style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;margin-top:2px;">Income 4.2× rent · No evictions · 3yr history</div>
+                </div>
+
+                <div style="background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:9px 10px;margin-bottom:6px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:10.5px;font-weight:600;color:var(--text);font-family:-apple-system,sans-serif;">Alex M.</span>
+                    <span class="i-tag tag-blue">Score 74</span>
+                  </div>
+                  <div style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;margin-top:2px;">Income 3.1× rent · 1 late payment · 2yr history</div>
+                </div>
+
+                <div style="padding:7px 9px;background:rgba(232,114,138,.04);border:1px solid rgba(232,114,138,.1);border-radius:8px;font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;line-height:1.45;">
+                  🤖 <strong style="color:var(--text);">AI recommends</strong>: Jordan K. — highest score, lowest risk. Awaiting your approval to send lease.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="wf-text rv d1">
+        <p class="sec-label">Screen</p>
+        <h2 class="sec-title">Data-driven tenant<br>selection.</h2>
+        <p class="sec-sub">The highest-leverage decision is who you let in. Octo's matching algorithm replaces gut-feel with transparent, bias-free, data-driven tenant selection.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Credit, income, and rental history</strong> checked automatically — no manual calls.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Fair Housing compliance</strong> built in — consistent criteria applied uniformly to every applicant.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>AI scoring</strong> ranks candidates by fit, surfacing your top recommendation with a rationale.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Owner approval</strong> required before any lease is sent — you stay in control of every final decision.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     3. LEASE
+================================================================ -->
+<section class="wf-section" id="lease">
+  <div class="container">
+    <div class="wf-layout">
+      <!-- Text -->
+      <div class="wf-text rv">
+        <p class="sec-label">Lease</p>
+        <h2 class="sec-title">Draft. Sign. Renew.<br>All automated.</h2>
+        <p class="sec-sub">Octo drafts jurisdiction-compliant leases, sends them for e-signature, tracks renewals, and flags required changes when laws update — no attorney required for routine leasing.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>State and city-specific templates</strong> auto-selected based on property address.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>E-signature workflow</strong> — tenant and owner both sign digitally, receipt stored automatically.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Renewal reminders</strong> sent 90 days before expiry with AI-suggested rent adjustment.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Law-change alerts</strong> — when regulations update, Octo flags which leases need amendments.</p></li>
+        </ul>
+      </div>
+
+      <!-- Visual box -->
+      <div class="rv d2 fa2">
+        <div class="glass vis-box glass-hover">
+          <div>
+            <div class="vis-title">Lease Status — Portfolio</div>
+            <div class="vis-row"><span class="vis-icon">📝</span><span><strong>Unit 4B</strong> — Lease sent · awaiting tenant signature</span><span class="vis-badge badge-pink">Pending</span></div>
+            <div class="vis-row"><span class="vis-icon">✅</span><span><strong>Unit 2A</strong> — Signed · effective June 1</span><span class="vis-badge badge-green">Active</span></div>
+            <div class="vis-row"><span class="vis-icon">🔔</span><span><strong>Unit 1C</strong> — Renewal due in 62 days</span><span class="vis-badge badge-pink">Review</span></div>
+            <div class="vis-row" style="margin-top:.8rem;background:rgba(232,114,138,.04);border-color:rgba(232,114,138,.15);">
+              <span class="vis-icon">⚖️</span>
+              <span style="font-size:.8rem;">NYC RSA §26-511 updated. 2 leases need amendment. <strong style="color:var(--pink);">Auto-draft ready.</strong></span>
+            </div>
+          </div>
+          <div class="vis-bar-wrap">
+            <div class="vis-bar-label"><span>Leases current</span><span style="color:var(--pink);">94%</span></div>
+            <div class="vis-bar"><div class="vis-bar-fill" style="width:94%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     4. COLLECT
+================================================================ -->
+<section class="wf-section" id="collect" style="background:var(--bg2);">
+  <div class="container">
+    <div class="wf-layout flip">
+      <!-- Visual -->
+      <div class="rv fa1">
+        <div class="glass vis-box glass-hover">
+          <div>
+            <div class="vis-title">Rent Collection — November</div>
+            <div class="vis-row"><span class="vis-icon">✅</span><span><strong>Unit 2A</strong> — $1,650 collected Nov 1</span><span class="vis-badge badge-green">Paid</span></div>
+            <div class="vis-row"><span class="vis-icon">✅</span><span><strong>Unit 3D</strong> — $2,100 collected Nov 1</span><span class="vis-badge badge-green">Paid</span></div>
+            <div class="vis-row"><span class="vis-icon">⏳</span><span><strong>Unit 1C</strong> — Reminder sent · Nov 3</span><span class="vis-badge badge-pink">Pending</span></div>
+            <div class="vis-row"><span class="vis-icon">⚡</span><span><strong>Late fee</strong> applied to Unit 1C · auto-disbursed on receipt</span></div>
+          </div>
+          <div>
+            <div class="vis-bar-label"><span>Collection rate</span><span style="color:var(--pink);">97%</span></div>
+            <div class="vis-bar"><div class="vis-bar-fill" style="width:97%;"></div></div>
+            <div style="font-size:.76rem;color:var(--muted);margin-top:.5rem;">Owner disbursement scheduled: Nov 5 · $5,420.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="wf-text rv d1">
+        <p class="sec-label">Collect</p>
+        <h2 class="sec-title">Rent collected.<br>Automatically.</h2>
+        <p class="sec-sub">Octo automates the full financial loop — invoicing, reminders, late fees, disbursements, and year-end tax docs — with no human intermediary needed.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Automatic invoicing</strong> every month. Tenants pay via ACH, card, or wallet.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Smart reminders</strong> — escalating nudges sent 3 days before, on the due date, and daily after.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Late fees applied automatically</strong> per the lease terms — no awkward conversations.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Owner disbursements</strong> wired within 2 business days of collection. Year-end 1099 generated automatically.</p></li>
+        </ul>
+
+        <div class="phase-row" style="margin-top:1.8rem;">
+          <div class="glass phase-card"><div class="phase-label">Today</div><div class="phase-title">Manual chase</div><div class="phase-desc">PM chases late payments, calculates disbursements manually.</div></div>
+          <div class="glass phase-card" style="border-color:var(--pink-border);background:rgba(232,114,138,.05);"><div class="phase-label" style="color:var(--pink);">V1 · Octo</div><div class="phase-title">Fully automated</div><div class="phase-desc">Automatic invoicing and rent disbursements. Zero PM involvement.</div></div>
+          <div class="glass phase-card"><div class="phase-label">V2 · 2030+</div><div class="phase-title">Continuous</div><div class="phase-desc">Daily invoicing removes lumpiness. Agent-to-agent payment rails.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     5. MAINTAIN
+================================================================ -->
+<section class="wf-section" id="maintain">
+  <div class="container">
+    <div class="wf-layout">
+      <!-- Text -->
+      <div class="wf-text rv">
+        <p class="sec-label">Maintain</p>
+        <h2 class="sec-title">From leak to fix.<br>Zero effort.</h2>
+        <p class="sec-sub">Octo detects issues (via sensor or tenant report), sources the best contractor, books the job, notifies your tenant, and closes the ticket. All while you sleep.</p>
+
+        <div class="feat-stats">
+          <div class="glass feat-stat"><span class="n">0 min</span><p class="l">Owner time per ticket</p></div>
+          <div class="glass feat-stat"><span class="n">4.5h</span><p class="l">Avg resolution time</p></div>
+          <div class="glass feat-stat"><span class="n">98%</span><p class="l">First-visit fix rate</p></div>
+        </div>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>AI triage</strong> — severity assessed immediately. Emergency dispatched within minutes.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Vetted vendor network</strong> — matched by rating, availability, and price. No vendor hunting.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Tenant kept in the loop</strong> — automated notifications at every step, no calls to you.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Predictive alerts</strong> — IoT sensors flag likely failures 60 days out. Fix before tenants notice.</p></li>
+        </ul>
+      </div>
+
+      <!-- iPhone — 3-step maintenance flow -->
+      <div class="iphone-wrap rv d2 fa2">
+        <div class="iphone" data-iphone id="iph-maintain">
+          <div class="iphone-screen">
+
+            <div class="i-screen" id="ms1" style="opacity:1;position:absolute;inset:0;transition:opacity .55s;">
+              <div class="i-statusbar"><span>9:43</span><span style="font-size:8px;">●●●● WiFi</span></div>
+              <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Octo</span></div>
+              <div class="i-body">
+                <div class="i-pill">
+                  <div class="i-pill-label">AI Detected</div>
+                  <div class="i-pill-title">Bathroom Pipe Leak</div>
+                  <div class="i-pill-sub">Unit 4B · Sensor anomaly</div>
+                </div>
+                <div class="i-row"><div class="i-dot done">✓</div>AI triaging severity</div>
+                <div class="i-row"><div class="i-dot pend"></div><span style="color:rgba(243,238,255,.45);">Finding contractors…</span></div>
+                <div class="i-row"><div class="i-dot idle"></div><span style="color:rgba(243,238,255,.2);">Done</span></div>
+                <div class="i-note">Step 1 of 3 · Detected automatically. No action needed.</div>
+              </div>
+              <div class="step-dots"><div class="step-dot on"></div><div class="step-dot"></div><div class="step-dot"></div></div>
+            </div>
+
+            <div class="i-screen" id="ms2" style="opacity:0;position:absolute;inset:0;transition:opacity .55s;padding-top:37px;">
+              <div class="i-statusbar"><span>9:44</span><span style="font-size:8px;">●●●● WiFi</span></div>
+              <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">Sourcing</span></div>
+              <div class="i-body">
+                <div style="font-size:8px;color:var(--muted);font-family:-apple-system,sans-serif;margin-bottom:6px;">3 contractors matched</div>
+                <div class="i-contractor">
+                  <div class="i-c-name">Marco Delgado</div>
+                  <div class="i-c-role">Licensed Plumber</div>
+                  <div class="i-c-stars">★★★★★</div>
+                  <div class="i-c-row"><span>ETA 45 min</span><span style="color:var(--pink);">$185</span></div>
+                </div>
+                <div class="i-row" style="padding:6px 8px;background:rgba(232,114,138,.04);border-radius:8px;">
+                  <div class="i-dot done">✓</div><span>Booked automatically</span>
+                </div>
+                <div class="i-note">📩 Tenant notified. No action needed.</div>
+              </div>
+              <div class="step-dots"><div class="step-dot"></div><div class="step-dot on"></div><div class="step-dot"></div></div>
+            </div>
+
+            <div class="i-screen" id="ms3" style="opacity:0;position:absolute;inset:0;transition:opacity .55s;padding-top:37px;">
+              <div class="i-statusbar"><span>2:17</span><span style="font-size:8px;">●●●● WiFi</span></div>
+              <div class="i-header"><span class="i-logo">🐙</span><span class="i-title">All Clear ✓</span></div>
+              <div class="i-body" style="display:flex;flex-direction:column;align-items:stretch;justify-content:center;">
+                <div class="i-done-circle">✓</div>
+                <div class="i-done-title">Repair Complete</div>
+                <div class="i-done-sub">Unit 4B · Bathroom Pipe Leak</div>
+                <div class="i-stat"><span style="color:var(--muted);">Time to resolve</span><span>4h 36m</span></div>
+                <div class="i-stat"><span style="color:var(--muted);">Cost</span><span>$185</span></div>
+                <div class="i-stat"><span style="color:var(--muted);">Your involvement</span><span class="pink">0 min</span></div>
+              </div>
+              <div class="step-dots"><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot on"></div></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     6. COMPLY
+================================================================ -->
+<section class="wf-section" id="comply" style="background:var(--bg2);">
+  <div class="container">
+    <div class="wf-layout flip">
+      <!-- Visual -->
+      <div class="rv fa1">
+        <div class="glass vis-box glass-hover">
+          <div>
+            <div class="vis-title">Compliance Risk — Portfolio</div>
+            <div class="risk-row"><span class="risk-name">NYC Rent Stabilization Notice</span><div class="risk-bar"><div class="risk-fill risk-hi" style="width:88%;"></div></div><span style="font-size:.75rem;color:var(--pink);">High</span></div>
+            <div class="risk-row"><span class="risk-name">CA Balcony Inspection Due</span><div class="risk-bar"><div class="risk-fill risk-med" style="width:58%;"></div></div><span style="font-size:.75rem;color:#e8b472;">Med</span></div>
+            <div class="risk-row"><span class="risk-name">Fair Housing Disclosure</span><div class="risk-bar"><div class="risk-fill risk-lo" style="width:22%;"></div></div><span style="font-size:.75rem;color:#72e8a0;">Low</span></div>
+            <div style="margin-top:1rem;padding:.75rem .9rem;background:rgba(232,114,138,.06);border:1px solid rgba(232,114,138,.18);border-radius:11px;font-size:.82rem;color:var(--muted);">
+              🤖 <strong style="color:var(--text);">AI Action</strong>: NYC notice drafted and sent to Unit 4B. Balcony inspection scheduled for Dec 14.
+            </div>
+          </div>
+          <div>
+            <div class="vis-bar-label"><span>Overall compliance score</span><span style="color:var(--pink);">91%</span></div>
+            <div class="vis-bar"><div class="vis-bar-fill" style="width:91%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="wf-text rv d1">
+        <p class="sec-label">Comply</p>
+        <h2 class="sec-title">Regulations monitored.<br>Automatically.</h2>
+        <p class="sec-sub">Octo monitors housing laws at the federal, state, city, and HOA level — flagging risks, auto-updating leases, and scheduling inspections before you get a fine.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Retrieval-augmented AI</strong> reads municipal codes, case law, and state statutes — continuously updated.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Lease auto-amendment</strong> — when a relevant law changes, Octo flags and re-drafts affected clauses.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Inspection scheduling</strong> — balcony, HVAC, and safety checks proactively booked before deadlines.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Risk scoring</strong> — each property gets a real-time compliance score with prioritized action items.</p></li>
+        </ul>
+
+        <div style="margin-top:1.5rem;padding:1rem 1.2rem;background:rgba(232,114,138,.05);border:1px solid rgba(232,114,138,.18);border-radius:14px;font-size:.88rem;color:var(--muted);">
+          Avg cost of regulatory violations: <strong style="color:var(--text);">$148,000/unit in legal fees alone.</strong> Octo surfaces every risk before it becomes a liability.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     7. REPORT
+================================================================ -->
+<section class="wf-section" id="report">
+  <div class="container">
+    <div class="wf-layout">
+      <!-- Text -->
+      <div class="wf-text rv">
+        <p class="sec-label">Report</p>
+        <h2 class="sec-title">Your portfolio,<br>always in focus.</h2>
+        <p class="sec-sub">Octo surfaces what matters — before you even think to ask. Real-time P&amp;L, occupancy trends, capex recommendations ranked by ROI, and predictive yield analysis.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Real-time dashboard</strong> — rent collected, expenses, net yield, and vacancy rate always current.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Capex ranking</strong> — improvements ranked by ROI net of applicable incentives.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Yield benchmarking</strong> — your units compared to comparable properties in your market.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Predictive alerts</strong> — HVAC likely to fail in 60 days? Octo tells you now, not after it breaks.</p></li>
+        </ul>
+      </div>
+
+      <!-- Visual -->
+      <div class="rv d2 fa2">
+        <div class="glass vis-box glass-hover">
+          <div>
+            <div class="vis-title">Portfolio Insights</div>
+            <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+              <div style="flex:1;min-width:90px;padding:.7rem;background:rgba(232,114,138,.06);border:1px solid rgba(232,114,138,.14);border-radius:12px;text-align:center;">
+                <div style="font-size:1.4rem;font-weight:900;color:var(--pink);">97%</div>
+                <div style="font-size:.72rem;color:var(--muted);">Occupancy</div>
+              </div>
+              <div style="flex:1;min-width:90px;padding:.7rem;background:rgba(232,114,138,.06);border:1px solid rgba(232,114,138,.14);border-radius:12px;text-align:center;">
+                <div style="font-size:1.4rem;font-weight:900;color:var(--pink);">+8%</div>
+                <div style="font-size:.72rem;color:var(--muted);">Yield YoY</div>
+              </div>
+              <div style="flex:1;min-width:90px;padding:.7rem;background:rgba(232,114,138,.06);border:1px solid rgba(232,114,138,.14);border-radius:12px;text-align:center;">
+                <div style="font-size:1.4rem;font-weight:900;color:var(--pink);">$5.4k</div>
+                <div style="font-size:.72rem;color:var(--muted);">Nov NOI</div>
+              </div>
+            </div>
+            <div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.5rem;">Rent Trend — Last 6 Months</div>
+            <div style="display:flex;align-items:flex-end;gap:6px;height:55px;padding:0 4px;">
+              <div style="flex:1;background:rgba(232,114,138,.25);border-radius:3px;height:55%;"></div>
+              <div style="flex:1;background:rgba(232,114,138,.3);border-radius:3px;height:65%;"></div>
+              <div style="flex:1;background:rgba(232,114,138,.35);border-radius:3px;height:72%;"></div>
+              <div style="flex:1;background:rgba(232,114,138,.45);border-radius:3px;height:80%;"></div>
+              <div style="flex:1;background:rgba(232,114,138,.55);border-radius:3px;height:88%;"></div>
+              <div style="flex:1;background:var(--pink);border-radius:3px;height:100%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.3rem;padding:0 4px;">
+              <span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span>
+            </div>
+          </div>
+          <div style="padding:.8rem .9rem;background:rgba(232,114,138,.05);border:1px solid rgba(232,114,138,.15);border-radius:11px;font-size:.82rem;color:var(--muted);">
+            🤖 <strong style="color:var(--text);">AI Insight</strong>: Unit 4B HVAC is 78% likely to need service within 60 days. Schedule now to avoid emergency costs.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     8. DOCUMENT
+================================================================ -->
+<section class="wf-section" id="document" style="background:var(--bg2);">
+  <div class="container">
+    <div class="wf-layout flip">
+      <!-- Visual -->
+      <div class="rv fa1">
+        <div class="glass vis-box glass-hover">
+          <div>
+            <div class="vis-title">Document Vault</div>
+            <div class="vis-row"><span class="vis-icon">📄</span><span><strong>Lease — Unit 4B</strong> · signed Jun 1 2025 · expires May 31 2026</span><span class="vis-badge badge-green">Current</span></div>
+            <div class="vis-row"><span class="vis-icon">📋</span><span><strong>Move-in Inspection — Unit 2A</strong> · Nov 3 2025 · 24 photos</span><span class="vis-badge badge-green">Filed</span></div>
+            <div class="vis-row"><span class="vis-icon">🧾</span><span><strong>1099 — 2024 Tax Year</strong> · ready for download</span><span class="vis-badge badge-green">Ready</span></div>
+            <div class="vis-row" style="border-color:rgba(232,114,138,.18);background:rgba(232,114,138,.04);"><span class="vis-icon">⚠️</span><span><strong>Balcony Permit — Unit 3D</strong> · renewal due Dec 31</span><span class="vis-badge badge-pink">Due Soon</span></div>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);">All documents stored, indexed, and searchable — nothing slips through the cracks.</div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="wf-text rv d1">
+        <p class="sec-label">Document</p>
+        <h2 class="sec-title">Every record tracked.<br>Nothing forgotten.</h2>
+        <p class="sec-sub">Critical documents are easy to neglect. Octo tracks every lease, inspection, permit, and tax document — with automatic reminders before renewal deadlines.</p>
+
+        <ul class="detail-list" style="margin-top:1.5rem;">
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Centralised vault</strong> — leases, inspection reports, permits, insurance, and tax docs in one place.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Renewal tracking</strong> — automatic reminders 90, 30, and 7 days before any document expires.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Move-in/out documentation</strong> — timestamped photos and condition reports stored with the tenancy record.</p></li>
+          <li class="detail-item"><div class="detail-dot"></div><p><strong>Tax-ready exports</strong> — 1099 forms, expense summaries, and depreciation schedules generated automatically.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<div class="cta-banner">
+  <div class="container">
+    <h2 class="rv">Ready to hand it all off?</h2>
+    <p class="rv d1">Eight AI agents. Every workflow. $17/door/month.</p>
+    <div class="cta-btns rv d2">
+      <a href="signup.html" class="btn-primary">Get Early Access</a>
+      <a href="pricing.html" class="btn-ghost">View Pricing</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <a href="index.html" class="foot-logo">🐙 Octo</a>
+    <ul class="foot-links">
+      <li><a href="features.html">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="signup.html">Sign Up</a></li>
+    </ul>
+    <p class="foot-copy">© 2025 Octo. Your native-AI property management firm.</p>
+  </div>
+</footer>
+
+<script>
+function openSidebar(){ document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); document.getElementById('hbg').classList.add('open'); }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); document.getElementById('hbg').classList.remove('open'); }
+
+/* Reveal */
+const io = new IntersectionObserver(e=>e.forEach(x=>{ if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* 3D tilt */
+document.querySelectorAll('.glass-hover').forEach(card=>{
+  card.addEventListener('mouseenter',()=>{ card.style.transition='transform .08s ease,box-shadow .12s ease'; });
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(700px) rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(6px)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transition='transform .5s ease,box-shadow .3s ease';
+    card.style.transform='perspective(700px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+  });
+});
+
+/* iPhone tilt */
+document.querySelectorAll('[data-iphone]').forEach(iph=>{
+  const def = iph.style.transform || 'perspective(1100px) rotateY(-9deg) rotateX(2deg)';
+  iph.addEventListener('mouseenter',()=>{ iph.style.transition='transform .08s ease'; });
+  iph.addEventListener('mousemove',e=>{
+    const r=iph.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    iph.style.transform=`perspective(1100px) rotateY(${x*20}deg) rotateX(${-y*14}deg) translateZ(10px)`;
+  });
+  iph.addEventListener('mouseleave',()=>{
+    iph.style.transition='transform .6s ease';
+    iph.style.transform=def;
+  });
+});
+
+/* Maintain iPhone 3-step auto-cycle */
+let ms=1;
+function maintainStep(n){
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('ms'+i);
+    if(el) el.style.opacity=i===n?'1':'0';
+  });
+  ms=n;
+}
+setInterval(()=>maintainStep(ms%3+1), 3200);
+
+/* Active tab highlighting */
+const tabs = document.querySelectorAll('.wf-tab');
+const sections = document.querySelectorAll('.wf-section');
+const sio = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      tabs.forEach(t=>t.classList.toggle('active', t.getAttribute('href')==='#'+id));
+    }
+  });
+}, {threshold:.4});
+sections.forEach(s=>sio.observe(s));
+</script>
+</body>
+</html>
