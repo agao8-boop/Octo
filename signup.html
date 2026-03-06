@@ -33,8 +33,9 @@ body {
   overflow-x: hidden; min-height: 100vh;
   display: flex; flex-direction: column; transition:background .35s,color .35s;
 }
-.theme-toggle { background:rgba(232,114,138,.08); border:1px solid var(--pink-border); border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; backdrop-filter:blur(10px); transition:background .22s,transform .3s; flex-shrink:0; color:var(--text); }
-.theme-toggle:hover { background:rgba(232,114,138,.18); transform:rotate(25deg); }
+.theme-toggle { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.14); border-radius:10px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(10px); transition:background .2s,box-shadow .2s; flex-shrink:0; color:var(--text); box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 8px rgba(0,0,0,.18); }
+.theme-toggle:hover { background:rgba(255,255,255,.2); }
+:root.light .theme-toggle { background:rgba(0,0,0,.07); border-color:rgba(0,0,0,.1); color:#1a1520; }
 body::before {
   content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -52,8 +53,8 @@ nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; d
 .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
 .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; letter-spacing:.05em; transition:color .22s; }
 .nav-links a:hover { color:var(--text); }
-.btn-cta { padding:.55rem 1.3rem; background:linear-gradient(135deg,#e8728a 0%,#cf5a74 55%,#e8728a 100%); background-size:200% 200%; color:#fff; border:none; border-radius:50px; font-family:var(--font); font-size:.88rem; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; transition:transform .2s,box-shadow .2s,background-position .4s; box-shadow:0 0 20px var(--pink-glow),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.18); }
-.btn-cta::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 100%); border-radius:50px 50px 0 0; pointer-events:none; }
+.btn-cta { padding:.55rem 1.3rem; background:linear-gradient(135deg,#e8728a 0%,#cf5a74 55%,#e8728a 100%); background-size:200% 200%; color:#fff; border:none; border-radius:10px; font-family:var(--font); font-size:.88rem; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; transition:transform .2s,box-shadow .2s,background-position .4s; box-shadow:0 0 20px var(--pink-glow),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.18); }
+.btn-cta::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 100%); pointer-events:none; }
 .btn-cta:hover { transform:translateY(-2px); background-position:100% 100%; }
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
 .hamburger span { display:block; width:24px; height:2px; background:var(--text); border-radius:2px; transition:all .3s; }
@@ -145,7 +146,7 @@ main { flex:1; display:flex; align-items:center; justify-content:center; padding
 .form-submit {
   width:100%; padding:1rem;
   background:var(--pink); color:#fff; border:none;
-  border-radius:50px; font-family:var(--font); font-size:1rem;
+  border-radius:14px; font-family:var(--font); font-size:1rem;
   cursor:pointer; font-weight:600; letter-spacing:.03em;
   transition:transform .22s, box-shadow .22s;
   box-shadow:0 0 28px var(--pink-glow);
@@ -212,7 +213,12 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
     <li><a href="pricing.html">Pricing</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:.75rem;">
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">☀️</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 20 20" width="17" height="17" fill="none">
+        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 2 A8 8 0 0 0 10 18 Z" fill="currentColor"/>
+      </svg>
+    </button>
     <button class="hamburger" id="hbg" onclick="openSidebar()"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -434,9 +440,7 @@ document.querySelectorAll('input,select,textarea').forEach(el=>{
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
   let isLight=false;
-  function apply(){ root.classList.toggle('light',isLight); btn.textContent=isLight?'🌙':'☀️'; }
-  btn.addEventListener('click',()=>{ isLight=!isLight; apply(); });
-  apply();
+  btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
 })();
 </script>
 </body>
