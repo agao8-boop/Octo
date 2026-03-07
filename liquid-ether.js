@@ -496,7 +496,14 @@
         this.output = new Output({ mouse_force: mopts.mouseForce, cursor_size: mopts.cursorSize, isViscous: mopts.isViscous, viscous: mopts.viscous, iterations_viscous: mopts.iterationsViscous, iterations_poisson: mopts.iterationsPoisson, dt: mopts.dt, BFECC: mopts.BFECC, resolution: mopts.resolution, isBounce: mopts.isBounce });
         el.prepend(Common.renderer.domElement);
         this._loop = this.loop.bind(this);
-        this._resize = () => { Common.resize(); this.output.resize(); };
+        this._resize = () => {
+          Common.resize();
+          this.output.resize();
+          // If the loop was running before the resize, restart it — the
+          // ResizeObserver cancels the pending rAF via cancelAnimationFrame
+          // before calling this, so we must schedule a new loop tick.
+          if (this.running) { rafId = requestAnimationFrame(this._loop); }
+        };
         window.addEventListener('resize', this._resize);
         this._vis = () => { document.hidden ? this.pause() : (isVisibleRef.current && this.start()); };
         document.addEventListener('visibilitychange', this._vis);
