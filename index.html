@@ -33,13 +33,75 @@
   --glass-b: rgba(232,114,138,0.28);
 }
 :root.light nav {
-  background: rgba(245,240,232,0.72) !important;
+  background: rgba(245,240,232,0.78) !important;
   border-color: rgba(232,114,138,0.2) !important;
 }
-:root.light footer { background: #e5e0d8; border-color: rgba(232,114,138,0.16); }
-:root.light .iphone { background: #d4d0cc; box-shadow: 0 0 0 1.5px rgba(0,0,0,0.15), 0 32px 90px rgba(0,0,0,0.22), inset 0 0 0 1.5px rgba(255,255,255,0.6); }
-:root.light .iphone-screen { background: #f0ece4; }
-:root.light .i-statusbar, :root.light .i-title { color: #1a1520; }
+/* ── Light mode: global text ── */
+:root.light body { color: #1a1520; }
+:root.light .sec-title { color: #1a1520; }
+:root.light .sec-sub   { color: rgba(26,21,32,0.62); }
+:root.light .sec-label { color: var(--pink); }
+:root.light .cta-title { color: #1a1520; }
+:root.light .cta-sub   { color: rgba(26,21,32,0.62); }
+/* ── Light mode: nav & footer ── */
+:root.light .nav-logo  { color: #1a1520; }
+:root.light .nav-links a { color: rgba(26,21,32,0.6); }
+:root.light .nav-links a:hover { color: #1a1520; }
+:root.light footer { background: #e5e0d8; border-color: rgba(232,114,138,0.16); color: #1a1520; }
+:root.light .foot-copy { color: rgba(26,21,32,0.42); }
+:root.light .foot-links a { color: rgba(26,21,32,0.55); }
+:root.light .foot-logo { color: #1a1520; }
+/* ── Light mode: hero (vivid fluid bg — keep white text) ── */
+:root.light .hero-brand { color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.45), 0 0 60px rgba(82,39,255,0.5); }
+:root.light .hero-tag   { color: rgba(255,255,255,0.92); text-shadow: 0 1px 12px rgba(0,0,0,0.4); }
+:root.light .hero-sub   { color: rgba(255,255,255,0.72); text-shadow: 0 1px 8px rgba(0,0,0,0.35); }
+:root.light .scroll-hint { color: rgba(255,255,255,0.55); }
+/* ── Light mode: stat/pain/step cards ── */
+:root.light .stat-num  { color: var(--pink); }
+:root.light .stat-lbl  { color: rgba(26,21,32,0.62); }
+:root.light .pain-item { color: rgba(26,21,32,0.68); background: rgba(0,0,0,0.03); border-color: rgba(232,114,138,0.14); }
+:root.light .step-txt h4 { color: #1a1520; }
+:root.light .step-txt p  { color: rgba(26,21,32,0.62); }
+:root.light .prod-step   { background: rgba(0,0,0,0.03); }
+:root.light .prod-step.active { background: rgba(232,114,138,0.08); border-color: rgba(232,114,138,0.28); }
+/* ── Light mode: workflow cards ── */
+:root.light .wf-title { color: #1a1520; }
+:root.light .wf-desc  { color: rgba(26,21,32,0.62); }
+/* ── Light mode: market numbers ── */
+:root.light .mkt-num .lbl { color: rgba(26,21,32,0.62); }
+/* ── Light mode: comparison table ── */
+:root.light table td  { color: rgba(26,21,32,0.68); }
+:root.light table th  { color: rgba(26,21,32,0.52); }
+:root.light th, :root.light td { border-bottom-color: rgba(232,114,138,0.12); }
+:root.light .no { color: rgba(26,21,32,0.28); }
+:root.light .ck { color: var(--pink); }
+/* ── Light mode: price comparison mini-cards ── */
+:root.light .price-old  { color: rgba(26,21,32,0.45); }
+:root.light .pr-card .per  { color: rgba(26,21,32,0.55); }
+:root.light .pr-card .note { color: rgba(26,21,32,0.5); }
+/* ── Light mode: iPhone mockup ── */
+:root.light .iphone { background: linear-gradient(160deg,#ccc8c4 0%,#b8b4b0 100%); box-shadow: 0 0 0 1.5px rgba(0,0,0,0.15), 0 32px 90px rgba(0,0,0,0.22), inset 0 0 0 1.5px rgba(255,255,255,0.6); }
+:root.light .iphone-screen { background: #f4f0e8; }
+:root.light .i-statusbar { color: rgba(26,21,32,0.8) !important; }
+:root.light .i-title     { color: #1a1520 !important; }
+:root.light .i-pill-title { color: #1a1520; }
+:root.light .i-pill-sub   { color: rgba(26,21,32,0.6); }
+:root.light .i-row        { color: rgba(26,21,32,0.65) !important; }
+:root.light .i-note       { background: rgba(0,0,0,0.04); color: rgba(26,21,32,0.65); }
+:root.light .i-c-name     { color: #1a1520; }
+:root.light .i-c-role     { color: rgba(26,21,32,0.58); }
+:root.light .i-c-row      { color: rgba(26,21,32,0.58); }
+:root.light .i-done-title { color: #1a1520; }
+:root.light .i-done-sub   { color: rgba(26,21,32,0.6); }
+:root.light .i-stat       { background: rgba(0,0,0,0.03); }
+:root.light .i-stat span:first-child { color: rgba(26,21,32,0.58); }
+:root.light .i-stat span:last-child  { color: #1a1520; }
+:root.light .i-dim-med { color: rgba(26,21,32,0.5); }
+:root.light .i-dim-low { color: rgba(26,21,32,0.3); }
+/* ── Light mode: sidebar ── */
+:root.light .sidebar { background: rgba(245,240,232,0.98); border-color: rgba(232,114,138,0.2); }
+:root.light .sidebar a { color: #1a1520; border-color: rgba(232,114,138,0.12); }
+:root.light .sidebar a:hover { color: var(--pink); }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; transition: background 0.35s, color 0.35s; }
 
@@ -186,8 +248,14 @@ nav {
 .hero-tag {
   font-size: clamp(1.1rem, 2.6vw, 1.5rem);
   color: rgba(243,238,255,0.88); margin-top: 1.1rem; line-height: 1.6;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
   animation: fadeUp 1.1s cubic-bezier(.16,1,.3,1) 0.14s both;
 }
+/* Dim text helpers for iPhone mockup (replaces hardcoded inline rgba) */
+.i-dim-med { color: rgba(243,238,255,0.45); font-size: 9.5px; font-family: -apple-system, sans-serif; }
+.i-dim-low { color: rgba(243,238,255,0.22); font-size: 9.5px; font-family: -apple-system, sans-serif; }
+/* Dimmed price (old / struck-out comparison) */
+.price-old { color: rgba(243,238,255,0.35); }
 .hero-sub {
   font-size: clamp(0.85rem, 1.7vw, 1.05rem);
   color: var(--muted); margin-top: 0.45rem; letter-spacing: 0.07em;
@@ -256,15 +324,29 @@ section { padding: 6rem 2rem; }
   max-width: 500px; line-height: 1.72;
 }
 
-/* Glass card */
+/* Glass card — enhanced glassmorphism */
 .glass {
-  background: linear-gradient(135deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 100%);
-  backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
+  backdrop-filter: blur(32px) saturate(200%) brightness(110%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%) brightness(110%);
   border: 1px solid var(--glass-b); border-radius: var(--radius);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    inset 0 -1px 0 rgba(0,0,0,0.08),
+    inset 1px 0 0 rgba(255,255,255,0.06),
+    0 8px 32px rgba(0,0,0,0.2),
+    0 2px 8px rgba(0,0,0,0.1);
 }
 :root.light .glass {
-  background: linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.45) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.58) 100%);
+  backdrop-filter: blur(28px) saturate(180%) brightness(102%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(102%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    inset 0 -1px 0 rgba(0,0,0,0.04),
+    0 8px 32px rgba(0,0,0,0.08),
+    0 2px 8px rgba(0,0,0,0.05);
 }
 .glass-hover {
   transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -721,8 +803,8 @@ footer {
                   <div class="i-pill-sub">Unit 4B · Sensor anomaly</div>
                 </div>
                 <div class="i-row"><div class="i-dot done">✓</div>AI triaging severity</div>
-                <div class="i-row"><div class="i-dot pend" id="dot2"></div><span style="color:rgba(243,238,255,.45)">Finding contractors…</span></div>
-                <div class="i-row"><div class="i-dot idle"></div><span style="color:rgba(243,238,255,.2)">Done</span></div>
+                <div class="i-row"><div class="i-dot pend" id="dot2"></div><span class="i-dim-med">Finding contractors…</span></div>
+                <div class="i-row"><div class="i-dot idle"></div><span class="i-dim-low">Done</span></div>
                 <div class="i-note">Step 1 of 3 · AI detected the problem automatically. No action needed from you yet.</div>
               </div>
               <div class="step-dots"><div class="step-dot on"></div><div class="step-dot"></div><div class="step-dot"></div></div>
@@ -878,7 +960,7 @@ footer {
     <div class="pr-grid rv">
       <div class="glass pr-card">
         <div style="font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">Traditional PM</div>
-        <span class="price" style="color:rgba(243,238,255,.35);">$120</span>
+        <span class="price price-old">$120</span>
         <div class="per">/door /month</div>
         <div class="note">9am–5pm · 100–200 doors max</div>
       </div>
@@ -932,27 +1014,34 @@ footer {
 <script>
 /* ── LiquidEther fluid hero ── */
 (function(){
-  const heroBg = document.getElementById('hero-bg');
-  if (!heroBg) return;
-  const le = initLiquidEther(heroBg, {
-    colors:           ['#5227FF','#FF9FFC','#B19EEF'],
-    mouseForce:       25,
-    cursorSize:       80,
-    isViscous:        true,
-    viscous:          52,
-    iterationsViscous: 44,
-    iterationsPoisson: 26,
-    isBounce:         true,
-    autoDemo:         true,
-    autoSpeed:        0.6,
-    autoIntensity:    2,
-    takeoverDuration: 0.25,
-    autoResumeDelay:  3000,
-    autoRampDuration: 0.6,
-    resolution:       0.5,
-    dt:               0.014,
-    BFECC:            true
-  });
+  function startFluid() {
+    const heroBg = document.getElementById('hero-bg');
+    if (!heroBg) return;
+    initLiquidEther(heroBg, {
+      colors:            ['#5227FF','#FF9FFC','#B19EEF'],
+      mouseForce:        25,
+      cursorSize:        80,
+      isViscous:         true,
+      viscous:           52,
+      iterationsViscous: 44,
+      iterationsPoisson: 26,
+      isBounce:          true,
+      autoDemo:          false,
+      resolution:        0.5,
+      dt:                0.014,
+      BFECC:             true
+    });
+    /* Force resize on next two frames so the renderer gets the correct
+       pixel dimensions after the browser has finished layout. */
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => window.dispatchEvent(new Event('resize')))
+    );
+  }
+  if (document.readyState === 'complete') {
+    startFluid();
+  } else {
+    window.addEventListener('load', startFluid);
+  }
 })();
 
 /* ── Light/dark theme toggle (Apple style) ── */
