@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Octo — AI Property Management</title>
+<script>(function(){var t=localStorage.getItem('octo-theme');if(t!=='dark')document.documentElement.classList.add('light');}());</script>
 <style>
 /* ============================================================
    RESET & TOKENS
@@ -491,8 +492,9 @@ section { padding: 6rem 2rem; }
 ============================================================ */
 .iphone-wrap {
   display: flex; justify-content: center; align-items: center;
-  perspective: 1400px; position: relative;
-  filter: drop-shadow(0 60px 80px rgba(0,0,0,0.38)) drop-shadow(0 20px 40px rgba(0,0,0,0.22));
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  position: relative;
 }
 
 /* outer chassis — titanium silver gradient */
@@ -527,7 +529,7 @@ section { padding: 6rem 2rem; }
     0 24px 48px rgba(0,0,0,0.22),
     0 8px 20px rgba(0,0,0,0.14);
 
-  transform: perspective(1400px) rotateY(-14deg) rotateX(4deg) rotate(1deg);
+  transform: rotateY(-14deg) rotateX(4deg) rotate(1deg);
   transition: transform 0.6s cubic-bezier(.16,1,.3,1);
   transform-style: preserve-3d;
   cursor: default;
@@ -547,6 +549,56 @@ section { padding: 6rem 2rem; }
     0 48px 100px rgba(0,0,0,0.72),
     0 24px 48px rgba(0,0,0,0.45),
     0 0 80px rgba(232,114,138,0.08);
+}
+
+/* ── Left side wall — real 3D thickness ── */
+.iphone::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 14px; height: 100%;
+  border-radius: 54px 0 0 54px;
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+  background: linear-gradient(
+    to bottom,
+    #dcdcdc 0%, #c8c8c8 15%,
+    #b0b0b0 40%, #bebebe 65%,
+    #d0d0d0 85%, #c8c8c8 100%
+  );
+  box-shadow: inset 2px 0 6px rgba(255,255,255,0.5), inset -1px 0 4px rgba(0,0,0,0.2);
+}
+:root:not(.light) .iphone::before {
+  background: linear-gradient(
+    to bottom,
+    #3c3c3e 0%, #2e2e30 15%,
+    #1e1e20 40%, #252527 65%,
+    #313133 85%, #2a2a2c 100%
+  );
+  box-shadow: inset 2px 0 6px rgba(255,255,255,0.06), inset -1px 0 4px rgba(0,0,0,0.6);
+}
+
+/* ── Top edge wall ── */
+.iphone::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 14px;
+  border-radius: 54px 54px 0 0;
+  transform-origin: top center;
+  transform: rotateX(90deg);
+  background: linear-gradient(
+    to right,
+    #c8c8c8 0%, #dcdcdc 25%, #e0e0e0 50%, #d4d4d4 75%, #c4c4c4 100%
+  );
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.5), inset 0 -1px 4px rgba(0,0,0,0.15);
+}
+:root:not(.light) .iphone::after {
+  background: linear-gradient(
+    to right,
+    #2a2a2c 0%, #343436 25%, #3c3c3e 50%, #303032 75%, #252527 100%
+  );
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.05), inset 0 -1px 4px rgba(0,0,0,0.5);
 }
 
 /* Volume buttons on the left */
@@ -1379,7 +1431,7 @@ footer {
     <div id="modal-form-content">
       <div class="modal-logo">🐙</div>
       <h2 class="modal-title">Get Early Access</h2>
-      <p class="modal-sub">Join the waitlist. We're onboarding NYC property owners first — limited spots before Dec 31, 2026.</p>
+      <p class="modal-sub">Join the waitlist. We're onboarding Bay Area property owners first — limited spots before Dec 31, 2026.</p>
 
       <form id="modal-form" onsubmit="handleModalSubmit(event)" novalidate>
         <div class="modal-input-wrap">
@@ -1444,12 +1496,16 @@ footer {
   });
 })();
 
-/* ── Light/dark theme toggle (Apple style) — light is default ── */
+/* ── Light/dark theme toggle — persists via localStorage ── */
 (function(){
   const btn = document.getElementById('themeToggle');
   const root = document.documentElement;
-  let isLight = true; // light mode is default
-  btn.addEventListener('click', ()=>{ isLight = !isLight; root.classList.toggle('light', isLight); });
+  let isLight = root.classList.contains('light');
+  btn.addEventListener('click', ()=>{
+    isLight = !isLight;
+    root.classList.toggle('light', isLight);
+    try{ localStorage.setItem('octo-theme', isLight ? 'light' : 'dark'); }catch(e){}
+  });
 })();
 
 /* ── Signup Modal ── */
@@ -1560,11 +1616,11 @@ if(iph){
     const r=iph.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-.5;
     const y=(e.clientY-r.top)/r.height-.5;
-    iph.style.transform=`perspective(1000px) rotateY(${x*20}deg) rotateX(${-y*14}deg) translateZ(12px)`;
+    iph.style.transform=`rotateY(${x*20}deg) rotateX(${-y*14}deg) translateZ(12px)`;
   });
   iph.addEventListener('mouseleave',()=>{
     iph.style.transition='transform .6s ease';
-    iph.style.transform='perspective(1000px) rotateY(-9deg) rotateX(2deg)';
+    iph.style.transform='rotateY(-9deg) rotateX(2deg)';
   });
 }
 </script>

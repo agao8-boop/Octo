@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Octo — Pricing</title>
+<script>(function(){var t=localStorage.getItem('octo-theme');if(t!=='dark')document.documentElement.classList.add('light');}());</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -569,12 +570,16 @@ function toggleFaq(el){
   if(!isOpen) el.classList.add('open');
 }
 
-/* Theme toggle — light is default */
+/* Theme toggle — persists via localStorage */
 (function(){
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
-  let isLight=true;
-  btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
+  let isLight=root.classList.contains('light');
+  btn.addEventListener('click',()=>{
+    isLight=!isLight;
+    root.classList.toggle('light',isLight);
+    try{localStorage.setItem('octo-theme',isLight?'light':'dark');}catch(e){}
+  });
 })();
 </script>
 </body>
