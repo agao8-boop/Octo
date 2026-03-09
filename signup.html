@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +18,52 @@
   --glass:       rgba(255,255,255,0.035);
   --glass-b:     rgba(232,114,138,0.18);
   --radius:      22px;
-  --font:        Georgia, 'Times New Roman', serif;
+  --font:        Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }
 :root.light {
-  --bg:#f5f0e8; --bg2:#ede8df; --text:#1a1520;
-  --muted:rgba(26,21,32,.52); --glass:rgba(255,255,255,.55); --glass-b:rgba(232,114,138,.28);
+  --bg:#f5f0e8; --bg2:#ede8df; --text:#08060e;
+  --muted:rgba(8,6,14,.65); --glass:rgba(255,255,255,.62); --glass-b:rgba(232,114,138,.30);
 }
-:root.light nav { background:rgba(245,240,232,.96) !important; border-color:rgba(232,114,138,.28) !important; }
-:root.light footer { background:#e5e0d8; border-color:rgba(232,114,138,.16); }
+:root.light nav {
+  background:rgba(245,240,232,.92) !important;
+  backdrop-filter:blur(40px) saturate(220%) !important;
+  -webkit-backdrop-filter:blur(40px) saturate(220%) !important;
+  border-color:rgba(232,114,138,.22) !important;
+}
+:root.light footer { background:#e5e0d8; border-color:rgba(232,114,138,.16); color:#08060e; }
 :root.light .glass { background:linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.45) 100%); }
+:root.light body { color:#08060e; }
+:root.light .copy-title { color:#08060e; }
+:root.light .copy-sub   { color:rgba(8,6,14,.68); }
+:root.light .perk-text h4 { color:#08060e; }
+:root.light .perk-text p  { color:rgba(8,6,14,.68); }
+:root.light .form-title { color:#08060e; }
+:root.light .form-sub   { color:rgba(8,6,14,.65); }
+:root.light .form-group label { color:rgba(8,6,14,.62); }
+:root.light .form-group input, :root.light .form-group select, :root.light .form-group textarea {
+  background:rgba(255,255,255,.7); border-color:rgba(232,114,138,.28); color:#08060e;
+}
+:root.light .form-group input::placeholder, :root.light .form-group textarea::placeholder { color:rgba(8,6,14,.38); }
+:root.light .form-note { color:rgba(8,6,14,.52); }
+:root.light .social-proof { background:rgba(0,0,0,.03); border-color:rgba(232,114,138,.14); }
+:root.light .sp-q { color:#08060e; }
+:root.light .sp-a { color:rgba(8,6,14,.58); }
+:root.light .foot-logo { color:#08060e; }
+:root.light .foot-links a { color:rgba(8,6,14,.62); }
+:root.light .foot-copy { color:rgba(8,6,14,.50); }
+:root.light body::before {
+  background:
+    radial-gradient(ellipse 55% 50% at 15% 25%, rgba(232,114,138,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 55% at 85% 75%, rgba(140,70,180,0.03) 0%, transparent 60%),
+    linear-gradient(150deg, #f5f0e8 0%, #ede8df 100%) !important;
+}
+:root.light .glass { background:linear-gradient(135deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.60) 100%); box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 4px 24px rgba(0,0,0,.08); }
+:root.light .nav-logo { color:#08060e; }
+:root.light .nav-links a { color:rgba(8,6,14,.62); }
+:root.light .nav-links a:hover { color:#08060e; }
+:root.light .sidebar { background:rgba(245,240,232,.98); }
+:root.light .sidebar a { color:#08060e; }
+:root.light .theme-toggle { background:rgba(0,0,0,.07); border-color:rgba(0,0,0,.1); color:#08060e; }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font); background: var(--bg); color: var(--text);
@@ -48,7 +85,7 @@ body::before {
 @keyframes bgd { 0%{opacity:1} 100%{opacity:.85} }
 
 /* Nav */
-nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.82); backdrop-filter:blur(26px); -webkit-backdrop-filter:blur(26px); border-bottom:1px solid rgba(232,114,138,.22); }
+nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.65); backdrop-filter:blur(40px) saturate(220%) brightness(110%); -webkit-backdrop-filter:blur(40px) saturate(220%) brightness(110%); border-bottom:1px solid rgba(232,114,138,.15); box-shadow:0 1px 0 rgba(255,255,255,.04),0 4px 24px rgba(0,0,0,.18); }
 .nav-logo { display:flex; align-items:center; gap:.4rem; text-decoration:none; color:var(--text); font-size:1.3rem; font-weight:700; }
 .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
 .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; letter-spacing:.05em; transition:color .22s; }
@@ -230,42 +267,42 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
     <div class="signup-copy">
       <p class="copy-label">Early Access</p>
       <h1 class="copy-title">Your building<br>runs itself now.</h1>
-      <p class="copy-sub">Join the waitlist for Octo — the AI-native property management platform that replaces your PM at 87% less cost. Currently onboarding in New York City.</p>
+      <p class="copy-sub">Join the waitlist for Octo — the AI-native property management platform that replaces your PM at a fraction of the cost. Currently onboarding Bay Area property owners.</p>
 
       <div class="perks">
         <div class="perk">
-          <div class="perk-icon">🕐</div>
+          <div class="perk-icon">💰</div>
           <div class="perk-text">
-            <h4>60-day free trial</h4>
-            <p>Full access to all 8 AI workflows. No credit card required to start.</p>
+            <h4>$500 one-time · no monthly fees</h4>
+            <p>Install before Dec 31, 2026 and pay only the setup cost — forever.</p>
           </div>
         </div>
         <div class="perk">
           <div class="perk-icon">⚡</div>
           <div class="perk-text">
             <h4>Set up in &lt; 5 minutes</h4>
-            <p>Connect your properties, set your preferences, and go live — no configuration headaches.</p>
+            <p>Connect your properties, set your preferences, and go live — no IT department needed.</p>
           </div>
         </div>
         <div class="perk">
-          <div class="perk-icon">💰</div>
+          <div class="perk-icon">🤖</div>
           <div class="perk-text">
-            <h4>$17/door/month</h4>
-            <p>All-in. No hidden fees, markups, or PM commissions. Cancel anytime.</p>
+            <h4>8 AI agents. Everything handled.</h4>
+            <p>Market, screen, lease, collect, maintain, comply, report — all automated.</p>
           </div>
         </div>
         <div class="perk">
           <div class="perk-icon">🔒</div>
           <div class="perk-text">
             <h4>You stay in control</h4>
-            <p>AI handles the routine. You approve the important stuff. Always.</p>
+            <p>AI handles the routine. You approve what matters. Always transparent.</p>
           </div>
         </div>
       </div>
 
       <div class="social-proof">
-        <div class="sp-q">"We use 3 associations and a legal firm just to stay on top of regulatory updates. We almost need to hire a compliance officer."</div>
-        <div class="sp-a">— New York landlord, 12 units · interview during product research</div>
+        <div class="sp-q">"We need 3 associations and a legal firm just to stay on top of compliance updates. We almost had to hire a full-time compliance officer."</div>
+        <div class="sp-a">— Bay Area landlord, 18 units · product research interview</div>
       </div>
     </div>
 
@@ -273,67 +310,35 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
     <div class="signup-form-wrap" id="form-wrap">
       <div id="form-content">
         <div class="form-title">Get early access</div>
-        <div class="form-sub">We're onboarding NYC property owners first. Secure your spot — we'll reach out within 48 hours.</div>
+        <div class="form-sub">We're onboarding Bay Area property owners first. Secure your spot — we'll reach out within 48 hours.</div>
 
         <form id="signup-form" onsubmit="handleSubmit(event)" novalidate>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fname">First name *</label>
-              <input type="text" id="fname" name="fname" placeholder="Jane" required autocomplete="given-name">
-            </div>
-            <div class="form-group">
-              <label for="lname">Last name *</label>
-              <input type="text" id="lname" name="lname" placeholder="Smith" required autocomplete="family-name">
-            </div>
-          </div>
-
           <div class="form-group">
             <label for="email">Email address *</label>
-            <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email">
+            <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
           </div>
 
           <div class="form-group">
-            <label for="phone">Phone number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="doors">Number of units *</label>
-              <select id="doors" name="doors" required>
-                <option value="" disabled selected>Select range</option>
-                <option value="1-4">1–4 units</option>
-                <option value="5-20">5–20 units</option>
-                <option value="21-50">21–50 units</option>
-                <option value="51-100">51–100 units</option>
-                <option value="100+">100+ units</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="city">City / Borough *</label>
-              <select id="city" name="city" required>
-                <option value="" disabled selected>Select city</option>
-                <option value="manhattan">Manhattan, NYC</option>
-                <option value="brooklyn">Brooklyn, NYC</option>
-                <option value="queens">Queens, NYC</option>
-                <option value="bronx">The Bronx, NYC</option>
-                <option value="staten-island">Staten Island, NYC</option>
-                <option value="other-ny">Other (NY)</option>
-                <option value="ca">California</option>
-                <option value="other">Other state</option>
-              </select>
-            </div>
+            <label for="doors">Number of units <span style="color:var(--muted);font-size:.75rem;">(optional)</span></label>
+            <select id="doors" name="doors">
+              <option value="" disabled selected>Select range</option>
+              <option value="1-4">1–4 units</option>
+              <option value="5-20">5–20 units</option>
+              <option value="21-50">21–50 units</option>
+              <option value="51-100">51–100 units</option>
+              <option value="100+">100+ units</option>
+            </select>
           </div>
 
           <div class="form-group">
-            <label for="pm">Current property management situation</label>
+            <label for="pm">Current use <span style="color:var(--muted);font-size:.75rem;">(optional)</span></label>
             <select id="pm" name="pm">
-              <option value="" disabled selected>Select one</option>
+              <option value="" disabled selected>How do you manage today?</option>
               <option value="self-manage">Self-managing — doing it all myself</option>
               <option value="pm-firm">Using a property management firm</option>
               <option value="pm-software">Using PM software (Buildium, AppFolio, etc.)</option>
-              <option value="mixed">Mixed — some properties managed, some DIY</option>
+              <option value="mixed">Mixed — some managed, some DIY</option>
             </select>
           </div>
 
@@ -347,7 +352,7 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
           </button>
 
           <p class="form-note">
-            No spam. No credit card. We'll reach out within 48 hours to confirm your spot and schedule a 15-minute call.
+            No spam. We'll reach out within 48 hours to confirm your spot.
           </p>
         </form>
       </div>
@@ -380,26 +385,32 @@ function closeSidebar(){ document.getElementById('sidebar').classList.remove('op
 
 function handleSubmit(e){
   e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const form = document.getElementById('signup-form');
-  const fname = document.getElementById('fname').value.trim();
-  const lname = document.getElementById('lname').value.trim();
+  const btn   = document.getElementById('submit-btn');
   const email = document.getElementById('email').value.trim();
-  const doors = document.getElementById('doors').value;
-  const city  = document.getElementById('city').value;
 
-  if(!fname || !lname || !email || !doors || !city){
-    shake(btn);
-    return;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
     shake(document.getElementById('email'));
     return;
   }
 
-  // Animate submit
   btn.disabled = true;
   btn.textContent = 'Sending…';
+
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuuGoDRfzxdUdZekGAAjFFAeZARCr1xSBI4L9Ov3rZY3koqwi_T5050hLZ7ixrlwXr/exec';
+  const formData = {
+    email: email,
+    units: document.getElementById('doors').value,
+    pmSituation: document.getElementById('pm').value,
+    painPoint: document.getElementById('challenge').value.trim(),
+    source: 'signup_page',
+    timestamp: new Date().toISOString()
+  };
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  }).catch(()=>{});
 
   setTimeout(()=>{
     document.getElementById('form-content').style.display='none';
@@ -439,7 +450,7 @@ document.querySelectorAll('input,select,textarea').forEach(el=>{
 (function(){
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
-  let isLight=false;
+  let isLight=true;
   btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
 })();
 </script>
