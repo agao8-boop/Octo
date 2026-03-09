@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +18,39 @@
   --glass:       rgba(255,255,255,0.035);
   --glass-b:     rgba(232,114,138,0.18);
   --radius:      22px;
-  --font:        Georgia, 'Times New Roman', serif;
+  --font:        Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }
 :root.light {
-  --bg:#f5f0e8; --bg2:#ede8df; --text:#1a1520;
-  --muted:rgba(26,21,32,.52); --glass:rgba(255,255,255,.55); --glass-b:rgba(232,114,138,.28);
+  --bg:#f5f0e8; --bg2:#ede8df; --text:#08060e;
+  --muted:rgba(8,6,14,.65); --glass:rgba(255,255,255,.62); --glass-b:rgba(232,114,138,.30);
 }
-:root.light nav { background:rgba(245,240,232,.96) !important; border-color:rgba(232,114,138,.28) !important; }
-:root.light footer { background:#e5e0d8; border-color:rgba(232,114,138,.16); }
+:root.light nav {
+  background:rgba(245,240,232,.92) !important;
+  backdrop-filter:blur(40px) saturate(220%) !important;
+  -webkit-backdrop-filter:blur(40px) saturate(220%) !important;
+  border-color:rgba(232,114,138,.22) !important;
+}
+:root.light footer { background:#e5e0d8; border-color:rgba(232,114,138,.16); color:#08060e; }
 :root.light .glass { background:linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.45) 100%); }
+:root.light body { color:#08060e; }
+:root.light .copy-title { color:#08060e; }
+:root.light .copy-sub   { color:rgba(8,6,14,.68); }
+:root.light .perk-text h4 { color:#08060e; }
+:root.light .perk-text p  { color:rgba(8,6,14,.68); }
+:root.light .form-title { color:#08060e; }
+:root.light .form-sub   { color:rgba(8,6,14,.65); }
+:root.light .form-group label { color:rgba(8,6,14,.62); }
+:root.light .form-group input, :root.light .form-group select, :root.light .form-group textarea {
+  background:rgba(255,255,255,.7); border-color:rgba(232,114,138,.28); color:#08060e;
+}
+:root.light .form-group input::placeholder, :root.light .form-group textarea::placeholder { color:rgba(8,6,14,.38); }
+:root.light .form-note { color:rgba(8,6,14,.52); }
+:root.light .social-proof { background:rgba(0,0,0,.03); border-color:rgba(232,114,138,.14); }
+:root.light .sp-q { color:#08060e; }
+:root.light .sp-a { color:rgba(8,6,14,.58); }
+:root.light .foot-logo { color:#08060e; }
+:root.light .foot-links a { color:rgba(8,6,14,.62); }
+:root.light .foot-copy { color:rgba(8,6,14,.50); }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font); background: var(--bg); color: var(--text);
@@ -48,7 +72,7 @@ body::before {
 @keyframes bgd { 0%{opacity:1} 100%{opacity:.85} }
 
 /* Nav */
-nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.82); backdrop-filter:blur(26px); -webkit-backdrop-filter:blur(26px); border-bottom:1px solid rgba(232,114,138,.22); }
+nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.65); backdrop-filter:blur(40px) saturate(220%) brightness(110%); -webkit-backdrop-filter:blur(40px) saturate(220%) brightness(110%); border-bottom:1px solid rgba(232,114,138,.15); box-shadow:0 1px 0 rgba(255,255,255,.04),0 4px 24px rgba(0,0,0,.18); }
 .nav-logo { display:flex; align-items:center; gap:.4rem; text-decoration:none; color:var(--text); font-size:1.3rem; font-weight:700; }
 .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
 .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; letter-spacing:.05em; transition:color .22s; }
@@ -401,6 +425,27 @@ function handleSubmit(e){
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
+  // Send to Google Sheets
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuuGoDRfzxdUdZekGAAjFFAeZARCr1xSBI4L9Ov3rZY3koqwi_T5050hLZ7ixrlwXr/exec';
+  const formData = {
+    email: email,
+    firstName: fname,
+    lastName: lname,
+    phone: document.getElementById('phone').value.trim(),
+    units: doors,
+    city: city,
+    pmSituation: document.getElementById('pm').value,
+    painPoint: document.getElementById('challenge').value.trim(),
+    source: 'signup_page',
+    timestamp: new Date().toISOString()
+  };
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  }).catch(()=>{});
+
   setTimeout(()=>{
     document.getElementById('form-content').style.display='none';
     const sm = document.getElementById('success-msg');
@@ -439,7 +484,7 @@ document.querySelectorAll('input,select,textarea').forEach(el=>{
 (function(){
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
-  let isLight=false;
+  let isLight=true;
   btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
 })();
 </script>

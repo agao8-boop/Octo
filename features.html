@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,13 +19,18 @@
   --glass:       rgba(255,255,255,0.035);
   --glass-b:     rgba(232,114,138,0.18);
   --radius:      22px;
-  --font:        Georgia, 'Times New Roman', serif;
+  --font:        Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }
 :root.light {
-  --bg:    #f5f0e8; --bg2: #ede8df; --text: #1a1520;
-  --muted: rgba(26,21,32,0.52); --glass: rgba(255,255,255,0.55); --glass-b: rgba(232,114,138,0.28);
+  --bg:    #f5f0e8; --bg2: #ede8df; --text: #08060e;
+  --muted: rgba(8,6,14,0.65); --glass: rgba(255,255,255,0.62); --glass-b: rgba(232,114,138,0.30);
 }
-:root.light nav { background: rgba(245,240,232,0.96) !important; border-color: rgba(232,114,138,0.28) !important; }
+:root.light nav {
+  background: rgba(245,240,232,0.92) !important;
+  backdrop-filter: blur(40px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(220%) !important;
+  border-color: rgba(232,114,138,0.22) !important;
+}
 :root.light footer { background: #e5e0d8; border-color: rgba(232,114,138,0.16); }
 :root.light .glass { background: linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.45) 100%); }
 html { scroll-behavior: smooth; }
@@ -54,9 +59,10 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 1rem 2rem;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(7,7,15,0.82);
-  backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px);
-  border-bottom: 1px solid rgba(232,114,138,0.22);
+  background: rgba(7,7,15,0.65);
+  backdrop-filter: blur(40px) saturate(220%) brightness(110%); -webkit-backdrop-filter: blur(40px) saturate(220%) brightness(110%);
+  border-bottom: 1px solid rgba(232,114,138,0.15);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 24px rgba(0,0,0,0.18);
 }
 .nav-logo {
   display: flex; align-items: center; gap: 0.4rem;
@@ -874,7 +880,7 @@ sections.forEach(s=>sio.observe(s));
 (function(){
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
-  let isLight=false;
+  let isLight=true;
   btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
 })();
 </script>

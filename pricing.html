@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,39 +18,75 @@
   --glass:       rgba(255,255,255,0.035);
   --glass-b:     rgba(232,114,138,0.18);
   --radius:      22px;
-  --font:        Georgia, 'Times New Roman', serif;
+  --font:        Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
 }
 :root.light {
-  --bg:#f5f0e8; --bg2:#ede8df; --text:#1a1520;
-  --muted:rgba(26,21,32,.52); --glass:rgba(255,255,255,.55); --glass-b:rgba(232,114,138,.28);
+  --bg:#f5f0e8; --bg2:#ede8df; --text:#08060e;
+  --muted:rgba(8,6,14,.65); --glass:rgba(255,255,255,.62); --glass-b:rgba(232,114,138,.30);
 }
-:root.light nav { background:rgba(245,240,232,.96) !important; border-color:rgba(232,114,138,.28) !important; }
+:root.light nav {
+  background:rgba(245,240,232,.92) !important;
+  backdrop-filter:blur(40px) saturate(220%) !important;
+  -webkit-backdrop-filter:blur(40px) saturate(220%) !important;
+  border-color:rgba(232,114,138,.22) !important;
+}
 :root.light footer { background:#e5e0d8; border-color:rgba(232,114,138,.16); }
-:root.light .glass { background:linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.45) 100%); }
+:root.light .glass { background:linear-gradient(135deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.50) 100%); }
+:root.light body { color:#08060e; }
+:root.light .sec-title { color:#08060e; }
+:root.light .sec-sub   { color:rgba(8,6,14,.68); }
+:root.light .ph-title  { color:#08060e; }
+:root.light .ph-sub    { color:rgba(8,6,14,.65); }
+:root.light .ph-label  { color:var(--pink); }
+:root.light .sec-label { color:var(--pink); }
+:root.light .nav-logo  { color:#08060e; }
+:root.light .nav-links a { color:rgba(8,6,14,.62); }
+:root.light .nav-links a:hover { color:#08060e; }
+:root.light footer { color:#08060e; }
+:root.light .foot-copy { color:rgba(8,6,14,.5); }
+:root.light .foot-links a { color:rgba(8,6,14,.62); }
+:root.light .foot-logo { color:#08060e; }
+:root.light .pc-name { color:#08060e; }
+:root.light .pc-desc { color:rgba(8,6,14,.65); }
+:root.light .pc-per  { color:rgba(8,6,14,.58); }
+:root.light .pc-label { color:rgba(8,6,14,.52); }
+:root.light .pc-feature { color:rgba(8,6,14,.68); }
+:root.light .faq-q { color:#08060e; }
+:root.light .faq-a { color:rgba(8,6,14,.68); }
+:root.light table td { color:rgba(8,6,14,.72); }
+:root.light table th { color:rgba(8,6,14,.58); }
+:root.light th, :root.light td { border-bottom-color:rgba(232,114,138,.14); }
+:root.light .no { color:rgba(8,6,14,.32); }
+:root.light .ck { color:var(--pink); }
+:root.light .cta-banner h2 { color:#08060e; }
+:root.light .cta-banner p  { color:rgba(8,6,14,.65); }
+:root.light .timeline-label { color:rgba(8,6,14,.62); }
+:root.light .tl-node h4 { color:#08060e; }
+:root.light .tl-node p  { color:rgba(8,6,14,.62); }
+:root.light .urgency-bar { background:rgba(8,6,14,.04); border-color:rgba(232,114,138,.2); }
+:root.light .urgency-text { color:rgba(8,6,14,.68); }
+
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; transition:background .35s,color .35s; }
-.theme-toggle { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.14); border-radius:10px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(10px); transition:background .2s,box-shadow .2s; flex-shrink:0; color:var(--text); box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 8px rgba(0,0,0,.18); }
+.theme-toggle { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.14); border-radius:10px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(10px); transition:background .2s; flex-shrink:0; color:var(--text); box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 2px 8px rgba(0,0,0,.18); }
 .theme-toggle:hover { background:rgba(255,255,255,.2); }
-:root.light .theme-toggle { background:rgba(0,0,0,.07); border-color:rgba(0,0,0,.1); color:#1a1520; }
+:root.light .theme-toggle { background:rgba(0,0,0,.07); border-color:rgba(0,0,0,.1); color:#08060e; }
 body::before {
   content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
     radial-gradient(ellipse 55% 50% at 15% 25%, rgba(232,114,138,0.09) 0%, transparent 60%),
     radial-gradient(ellipse 50% 55% at 85% 75%, rgba(140,70,180,0.07) 0%, transparent 60%),
     linear-gradient(150deg, #07070f 0%, #0e0b1a 100%);
-  animation: bgd 15s ease-in-out infinite alternate;
 }
-@keyframes bgd { 0%{background-position:15% 25%,85% 75%} 100%{background-position:22% 32%,78% 68%} }
 
 /* Nav */
-nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.82); backdrop-filter:blur(26px); -webkit-backdrop-filter:blur(26px); border-bottom:1px solid rgba(232,114,138,.22); }
+nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:rgba(7,7,15,.65); backdrop-filter:blur(40px) saturate(220%); -webkit-backdrop-filter:blur(40px) saturate(220%); border-bottom:1px solid rgba(232,114,138,.15); box-shadow:0 1px 0 rgba(255,255,255,.04),0 4px 24px rgba(0,0,0,.18); }
 .nav-logo { display:flex; align-items:center; gap:.4rem; text-decoration:none; color:var(--text); font-size:1.3rem; font-weight:700; }
 .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
 .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; letter-spacing:.05em; transition:color .22s; }
 .nav-links a:hover,.nav-links a.active { color:var(--text); }
-.btn-cta { padding:.55rem 1.3rem; background:linear-gradient(135deg,#e8728a 0%,#cf5a74 55%,#e8728a 100%); background-size:200% 200%; color:#fff; border:none; border-radius:10px; font-family:var(--font); font-size:.88rem; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; transition:transform .2s,box-shadow .2s,background-position .4s; box-shadow:0 0 20px var(--pink-glow),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.18); }
-.btn-cta::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 100%); pointer-events:none; }
-.btn-cta:hover { transform:translateY(-2px); box-shadow:0 5px 30px var(--pink-glow); background-position:100% 100%; }
+.btn-cta { padding:.55rem 1.3rem; background:linear-gradient(135deg,#e8728a 0%,#cf5a74 55%,#e8728a 100%); background-size:200% 200%; color:#fff; border:none; border-radius:10px; font-family:var(--font); font-size:.88rem; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; transition:transform .2s,box-shadow .2s; box-shadow:0 0 20px var(--pink-glow),inset 0 1px 0 rgba(255,255,255,.28); }
+.btn-cta:hover { transform:translateY(-2px); box-shadow:0 5px 30px var(--pink-glow); }
 .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
 .hamburger span { display:block; width:24px; height:2px; background:var(--text); border-radius:2px; transition:all .3s; }
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)} .hamburger.open span:nth-child(2){opacity:0} .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -66,7 +102,7 @@ nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1rem 2rem; d
 /* Layout */
 .container { max-width:1000px; margin:0 auto; }
 section { padding:5rem 2rem; }
-.glass { background:linear-gradient(135deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.025) 100%); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid var(--glass-b); border-radius:var(--radius); box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.06),0 4px 24px rgba(0,0,0,.12); }
+.glass { background:linear-gradient(135deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.025) 100%); backdrop-filter:blur(24px) saturate(180%); -webkit-backdrop-filter:blur(24px) saturate(180%); border:1px solid var(--glass-b); border-radius:var(--radius); box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 24px rgba(0,0,0,.12); }
 .glass-hover { transition:transform .12s ease,box-shadow .12s ease; transform-style:preserve-3d; }
 .glass-hover:hover { box-shadow:0 10px 50px rgba(232,114,138,.16); }
 .rv { opacity:0; transform:translateY(34px); transition:opacity .82s cubic-bezier(.16,1,.3,1),transform .82s cubic-bezier(.16,1,.3,1); }
@@ -77,10 +113,27 @@ section { padding:5rem 2rem; }
 .fa1{animation:f1 6.5s ease-in-out infinite} .fa2{animation:f2 8s ease-in-out infinite}
 
 /* Page header */
-.page-header { padding:9rem 2rem 5rem; text-align:center; }
+.page-header { padding:9rem 2rem 4rem; text-align:center; }
 .ph-label { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--pink); margin-bottom:.85rem; }
 .ph-title { font-size:clamp(2.2rem,5vw,3.8rem); font-weight:700; line-height:1.15; }
-.ph-sub { font-size:1rem; color:var(--muted); margin:1rem auto 0; max-width:480px; line-height:1.72; }
+.ph-sub { font-size:1rem; color:var(--muted); margin:1rem auto 0; max-width:520px; line-height:1.72; }
+
+/* Urgency countdown bar */
+.urgency-bar {
+  max-width:620px; margin:2.2rem auto 0;
+  padding:1rem 1.5rem;
+  background:rgba(232,114,138,.07); border:1px solid rgba(232,114,138,.22);
+  border-radius:14px; text-align:center;
+}
+.urgency-label { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pink); margin-bottom:.4rem; }
+.urgency-text { font-size:.9rem; color:var(--muted); line-height:1.55; }
+.urgency-text strong { color:var(--text); }
+.deadline-pill {
+  display:inline-block; background:linear-gradient(135deg,rgba(232,114,138,.18),rgba(232,114,138,.08));
+  border:1px solid rgba(232,114,138,.35); border-radius:50px;
+  padding:.25rem .85rem; font-size:.78rem; font-weight:700; color:var(--pink);
+  margin-top:.7rem;
+}
 
 /* Pricing cards */
 .pricing-grid {
@@ -91,37 +144,69 @@ section { padding:5rem 2rem; }
   padding:2.5rem 2rem; border-radius:var(--radius); position:relative; overflow:hidden;
 }
 .price-card.featured {
-  border-color:rgba(232,114,138,.42) !important;
-  background:rgba(232,114,138,.06) !important;
+  border-color:rgba(74,222,128,.38) !important;
+  background:linear-gradient(135deg,rgba(74,222,128,.06) 0%,rgba(74,222,128,.02) 100%) !important;
 }
 .price-card.featured::before {
-  content:'Most Popular';
+  content:'✨ Early Adopter — Limited';
   position:absolute; top:1.2rem; right:1.2rem;
-  font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--pink); background:rgba(232,114,138,.12);
-  border:1px solid rgba(232,114,138,.28); border-radius:50px;
+  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+  color:#3dba6c; background:rgba(74,222,128,.15);
+  border:1px solid rgba(74,222,128,.3); border-radius:50px;
   padding:.25rem .75rem;
 }
 .pc-label { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; }
 .pc-name { font-size:1.4rem; font-weight:700; color:var(--text); margin-bottom:.5rem; }
-.pc-price { font-size:3rem; font-weight:900; color:var(--pink); line-height:1; }
-.pc-per { font-size:.82rem; color:var(--muted); margin:.3rem 0 1.5rem; }
+.pc-price { font-size:3.2rem; font-weight:900; color:var(--pink); line-height:1; }
+.pc-price.green { color:#4ade80; }
+.pc-per { font-size:.82rem; color:var(--muted); margin:.3rem 0 .5rem; }
+.pc-deadline { font-size:.78rem; font-weight:700; color:#4ade80; margin-bottom:1.2rem; }
 .pc-desc { font-size:.9rem; color:var(--muted); line-height:1.65; margin-bottom:1.8rem; }
 .pc-divider { height:1px; background:rgba(232,114,138,.12); margin:1.5rem 0; }
 .pc-features { list-style:none; display:flex; flex-direction:column; gap:.75rem; margin-bottom:2rem; }
 .pc-feature { display:flex; gap:.75rem; align-items:flex-start; font-size:.88rem; color:var(--muted); }
 .pc-check { color:var(--pink); font-size:1rem; flex-shrink:0; margin-top:.05rem; }
+.pc-check.grn { color:#4ade80; }
 .btn-primary { display:block; text-align:center; padding:.9rem 2rem; background:var(--pink); color:#fff; border:none; border-radius:14px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; transition:transform .22s,box-shadow .22s; box-shadow:0 0 28px var(--pink-glow); }
 .btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 44px var(--pink-glow); }
+.btn-primary.green-btn { background:linear-gradient(135deg,#4ade80,#22c55e); box-shadow:0 0 28px rgba(74,222,128,.35); }
+.btn-primary.green-btn:hover { box-shadow:0 8px 44px rgba(74,222,128,.45); }
 .btn-outline { display:block; text-align:center; padding:.9rem 2rem; background:transparent; color:var(--text); border:1px solid var(--pink-border); border-radius:14px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; transition:background .22s,transform .22s; backdrop-filter:blur(10px); }
 .btn-outline:hover { background:rgba(232,114,138,.1); transform:translateY(-2px); }
 
-/* Comparison row */
+/* Timeline */
+.timeline-section { text-align:center; }
+.timeline-wrap { max-width:700px; margin:3rem auto 0; }
+.timeline-track {
+  position:relative; display:flex; align-items:flex-start; justify-content:space-between;
+  padding:0 1rem; gap:1rem;
+}
+.timeline-track::before {
+  content:''; position:absolute; top:20px; left:10%; right:10%; height:3px;
+  background:linear-gradient(90deg, rgba(74,222,128,.6), rgba(232,114,138,.6));
+  border-radius:4px; z-index:0;
+}
+.tl-node { flex:1; display:flex; flex-direction:column; align-items:center; gap:.65rem; position:relative; z-index:1; }
+.tl-dot {
+  width:42px; height:42px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; font-weight:700;
+  border:2.5px solid;
+  box-shadow:0 0 18px rgba(0,0,0,.2);
+}
+.tl-dot.now { background:rgba(74,222,128,.15); border-color:#4ade80; color:#4ade80; box-shadow:0 0 18px rgba(74,222,128,.3); }
+.tl-dot.after { background:rgba(232,114,138,.1); border-color:var(--pink); color:var(--pink); }
+.tl-node h4 { font-size:.9rem; font-weight:700; color:var(--text); text-align:center; line-height:1.3; }
+.tl-node p { font-size:.78rem; color:var(--muted); text-align:center; line-height:1.45; }
+.tl-node .badge { font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .65rem; border-radius:50px; font-weight:700; }
+.tl-node .badge.early { background:rgba(74,222,128,.18); color:#3dba6c; border:1px solid rgba(74,222,128,.3); }
+.tl-node .badge.std   { background:rgba(232,114,138,.12); color:var(--pink); border:1px solid rgba(232,114,138,.25); }
+
+/* Comparison table */
 .compare-section { background:var(--bg2); }
 .sec-label { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--pink); margin-bottom:.85rem; }
 .sec-title { font-size:clamp(1.8rem,3.8vw,2.8rem); font-weight:700; line-height:1.2; color:var(--text); }
 .sec-sub { font-size:.97rem; color:var(--muted); margin-top:.8rem; max-width:480px; line-height:1.72; }
-
 .compare-tbl { margin-top:3rem; overflow-x:auto; border-radius:var(--radius); }
 table { width:100%; border-collapse:collapse; font-size:.88rem; }
 th,td { padding:.95rem 1.1rem; text-align:center; border-bottom:1px solid rgba(232,114,138,.08); }
@@ -131,25 +216,15 @@ th.oc { color:var(--pink); }
 .ck { color:var(--pink); font-size:1rem; }
 .no { color:rgba(243,238,255,.18); }
 
-/* Savings calc */
-.calc-section { text-align:center; }
-.calc-box { max-width:600px; margin:3rem auto 0; padding:2.5rem; }
-.calc-title { font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; }
-.slider-wrap { margin:1rem 0 .5rem; }
-.slider-label { display:flex; justify-content:space-between; font-size:.82rem; color:var(--muted); margin-bottom:.5rem; }
-input[type=range] {
-  -webkit-appearance:none; width:100%; height:5px;
-  background:rgba(232,114,138,.2); border-radius:5px; outline:none;
+/* ROI section */
+.roi-section { text-align:center; }
+.roi-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem; margin-top:3rem;
 }
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
-  background:var(--pink); cursor:pointer;
-  box-shadow:0 0 10px var(--pink-glow);
-}
-.calc-results { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; }
-.calc-res { padding:1.2rem; border-radius:14px; text-align:center; }
-.calc-res .big { font-size:2rem; font-weight:900; display:block; }
-.calc-res .lbl { font-size:.78rem; color:var(--muted); margin-top:.3rem; }
+.roi-card { padding:2rem 1.5rem; text-align:center; }
+.roi-num { font-size:2.6rem; font-weight:900; color:var(--pink); display:block; line-height:1; }
+.roi-lbl { font-size:.82rem; color:var(--muted); margin-top:.5rem; line-height:1.5; }
 
 /* FAQ */
 .faq-section { }
@@ -159,7 +234,7 @@ input[type=range]::-webkit-slider-thumb {
 .faq-arrow { color:var(--pink); font-size:1.1rem; transition:transform .3s; flex-shrink:0; }
 .faq-item.open .faq-arrow { transform:rotate(180deg); }
 .faq-a { font-size:.88rem; color:var(--muted); line-height:1.7; margin-top:0; max-height:0; overflow:hidden; transition:max-height .4s ease,margin-top .3s ease; }
-.faq-item.open .faq-a { max-height:200px; margin-top:.9rem; }
+.faq-item.open .faq-a { max-height:220px; margin-top:.9rem; }
 
 /* CTA */
 .cta-banner { padding:5rem 2rem; text-align:center; background:radial-gradient(ellipse at 50% 60%,rgba(232,114,138,.07) 0%,transparent 68%); }
@@ -181,7 +256,9 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
 @media (max-width:768px) {
   .nav-links { display:none; } .hamburger { display:flex; }
   .pricing-grid { grid-template-columns:1fr; }
-  .calc-results { grid-template-columns:1fr; }
+  .timeline-track { flex-direction:column; align-items:center; }
+  .timeline-track::before { display:none; }
+  .roi-grid { grid-template-columns:1fr 1fr; }
   .foot-inner { flex-direction:column; text-align:center; } .foot-links { justify-content:center; }
 }
 </style>
@@ -194,7 +271,7 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
   <a href="index.html">Home</a>
   <a href="features.html">Features</a>
   <a href="pricing.html" class="active">Pricing</a>
-  <a href="signup.html" class="sb-cta btn-cta">Get Early Access</a>
+  <a href="#" class="sb-cta btn-cta" onclick="closeSidebar()">Get Early Access</a>
 </aside>
 
 <nav>
@@ -211,16 +288,25 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
         <path d="M10 2 A8 8 0 0 0 10 18 Z" fill="currentColor"/>
       </svg>
     </button>
-    <a href="signup.html" class="btn-cta">Get Early Access</a>
+    <a href="index.html#" class="btn-cta" onclick="event.preventDefault();window.location.href='index.html';">Get Early Access</a>
     <button class="hamburger" id="hbg" onclick="openSidebar()"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <!-- Header -->
 <div class="page-header">
-  <p class="ph-label">Pricing</p>
-  <h1 class="ph-title rv">Simple pricing.<br>Serious savings.</h1>
-  <p class="ph-sub rv d1">87% less than a traditional property manager. No setup fees. No contracts. Cancel anytime.</p>
+  <p class="ph-label rv">Pricing</p>
+  <h1 class="ph-title rv">Simple pricing.<br>Built for early movers.</h1>
+  <p class="ph-sub rv d1">Install once. Pay once. Own it forever — if you move before the deadline.</p>
+
+  <div class="urgency-bar rv d2">
+    <div class="urgency-label">⏰ Early Adopter Window</div>
+    <div class="urgency-text">
+      Install before <strong>December 31, 2026</strong> and pay only the one-time installation fee. <strong>No monthly subscription. Ever.</strong>
+      <br>From January 1, 2027 onwards, standard pricing applies: installation fee + $250/month.
+    </div>
+    <div class="deadline-pill">Dec 31, 2026 deadline — act now</div>
+  </div>
 </div>
 
 <!-- Pricing Cards -->
@@ -228,79 +314,108 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
   <div class="container">
     <div class="pricing-grid">
 
-      <!-- Starter -->
-      <div class="glass glass-hover price-card fa1 rv">
-        <div class="pc-label">For small portfolios</div>
-        <div class="pc-name">Starter</div>
-        <div class="pc-price">$17</div>
-        <div class="pc-per">/door /month · billed monthly</div>
-        <div class="pc-desc">Everything you need to replace your property manager — for a fraction of the cost.</div>
-        <a href="signup.html" class="btn-outline">Start Free Trial</a>
+      <!-- Early Adopter (before Dec 31 2026) -->
+      <div class="glass glass-hover price-card featured fa1 rv">
+        <div class="pc-label">Limited — before Dec 31, 2026</div>
+        <div class="pc-name">Early Adopter</div>
+        <div class="pc-price green">$500</div>
+        <div class="pc-per">one-time installation per agent</div>
+        <div class="pc-deadline">✓ No monthly subscription — ever</div>
+        <div class="pc-desc">Pay once. Octo runs your property management AI indefinitely with no recurring charges. Lock in this deal before the window closes.</div>
+        <a href="index.html" class="btn-primary green-btn">Reserve My Spot →</a>
         <div class="pc-divider"></div>
         <ul class="pc-features">
-          <li class="pc-feature"><span class="pc-check">✓</span>All 8 AI workflows (Market, Screen, Lease, Collect, Maintain, Comply, Report, Document)</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>24/7 tenant communication &amp; maintenance dispatch</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Automated rent collection &amp; disbursements</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Real-time compliance monitoring</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Portfolio dashboard with AI insights</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Vetted vendor network access</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>60-day free trial · no credit card required</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>Full AI property management (all 8 workflows)</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>24/7 tenant communication &amp; maintenance dispatch</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>Automated rent collection &amp; disbursements</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>Compliance monitoring &amp; lease management</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>Portfolio analytics &amp; AI-generated reports</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span>Infrastructure, LLM APIs &amp; support — included</li>
+          <li class="pc-feature"><span class="pc-check grn">✓</span><strong>Zero monthly fees — install before Dec 31, 2026</strong></li>
         </ul>
       </div>
 
-      <!-- Growth -->
-      <div class="glass glass-hover price-card featured fa2 rv d1">
-        <div class="pc-label">For growing portfolios</div>
-        <div class="pc-name">Growth</div>
-        <div class="pc-price">$14</div>
-        <div class="pc-per">/door /month · billed annually · save 18%</div>
-        <div class="pc-desc">Everything in Starter, plus priority support and advanced analytics for larger portfolios.</div>
-        <a href="signup.html" class="btn-primary">Get Early Access</a>
+      <!-- Standard (from Jan 1 2027) -->
+      <div class="glass glass-hover price-card fa2 rv d1">
+        <div class="pc-label">From January 1, 2027</div>
+        <div class="pc-name">Standard</div>
+        <div class="pc-price">$500</div>
+        <div class="pc-per">installation fee + $250/month subscription</div>
+        <div class="pc-deadline" style="color:var(--muted);">Monthly subscription applies after Jan 1, 2027</div>
+        <div class="pc-desc">Full access to Octo's AI property management platform with all future updates and priority support.</div>
+        <a href="index.html" class="btn-outline">Join Waitlist</a>
         <div class="pc-divider"></div>
         <ul class="pc-features">
-          <li class="pc-feature"><span class="pc-check">✓</span>Everything in Starter</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Advanced portfolio analytics &amp; scenario modelling</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Predictive maintenance alerts (IoT integration)</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Capex ranking &amp; ROI forecasting</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Priority vendor dispatch</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>Dedicated onboarding specialist</li>
-          <li class="pc-feature"><span class="pc-check">✓</span>API access for custom integrations</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>Full AI property management (all 8 workflows)</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>24/7 tenant communication &amp; maintenance dispatch</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>Automated rent collection &amp; disbursements</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>Compliance monitoring &amp; lease management</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>Portfolio analytics &amp; AI-generated reports</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>Infrastructure, LLM APIs &amp; support — included</li>
+          <li class="pc-feature"><span class="pc-check">✓</span>$250/month subscription after installation</li>
         </ul>
       </div>
 
     </div>
 
-    <!-- Note -->
     <div style="text-align:center;margin-top:2rem;" class="rv d2">
-      <p style="font-size:.88rem;color:var(--muted);">All plans include a 60-day free trial. No setup fees. No long-term contracts. Pricing scales with your portfolio — more doors, same per-door rate.</p>
+      <p style="font-size:.88rem;color:var(--muted);">Installation includes setup, onboarding, and first-year configuration. Pricing is per AI agent deployed. Multi-agent discounts available for portfolios of 10+ units — contact us.</p>
     </div>
   </div>
 </section>
 
-<!-- Savings Calculator -->
-<section class="calc-section" style="background:var(--bg2);">
+<!-- Timeline -->
+<section class="timeline-section" style="background:var(--bg2);">
   <div class="container">
-    <p class="ph-label">Savings Calculator</p>
-    <h2 class="sec-title rv" style="text-align:center;">See your savings</h2>
-    <div class="glass glass-hover calc-box rv d1">
-      <div class="calc-title">How many doors do you manage?</div>
-      <div class="slider-wrap">
-        <div class="slider-label"><span>1 door</span><span id="door-count">10 doors</span><span>100 doors</span></div>
-        <input type="range" id="door-slider" min="1" max="100" value="10" oninput="calcSavings()">
-      </div>
-      <div class="calc-results">
-        <div class="glass calc-res" style="background:rgba(232,114,138,.04);">
-          <span class="big" id="old-cost" style="color:rgba(243,238,255,.35);">$14,400</span>
-          <div class="lbl">Traditional PM cost /year<br><span style="font-size:.7rem;">($120/door/month)</span></div>
+    <p class="sec-label" style="text-align:center;">How It Works</p>
+    <h2 class="sec-title rv" style="text-align:center;">The pricing timeline</h2>
+    <p class="sec-sub rv d1" style="margin:0.8rem auto 0;text-align:center;">Lock in the early-adopter rate before the window closes.</p>
+
+    <div class="timeline-wrap rv d2">
+      <div class="timeline-track">
+
+        <div class="tl-node">
+          <div class="tl-dot now">📅</div>
+          <span class="badge early">Now → Dec 31, 2026</span>
+          <h4>Early Adopter</h4>
+          <p>$500 one-time<br>No monthly fees ever</p>
         </div>
-        <div class="glass calc-res" style="border-color:rgba(232,114,138,.35);background:rgba(232,114,138,.06);">
-          <span class="big" id="new-cost" style="color:var(--pink);">$2,040</span>
-          <div class="lbl">Octo cost /year<br><span style="font-size:.7rem;">($17/door/month)</span></div>
+
+        <div class="tl-node">
+          <div class="tl-dot after">🗓️</div>
+          <span class="badge std">Jan 1, 2027 onwards</span>
+          <h4>Standard Rate</h4>
+          <p>$500 installation<br>+ $250/month</p>
         </div>
+
       </div>
-      <div style="margin-top:1.5rem;padding:1.1rem 1.3rem;background:rgba(232,114,138,.08);border:1px solid rgba(232,114,138,.22);border-radius:14px;text-align:center;">
-        <span style="font-size:1.1rem;font-weight:700;color:var(--pink);">You save <span id="saved">$12,360</span>/year</span>
-        <div style="font-size:.8rem;color:var(--muted);margin-top:.3rem;">That's <span id="pct">86%</span> less than a traditional property manager</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI Calculator -->
+<section class="roi-section">
+  <div class="container">
+    <p class="sec-label" style="text-align:center;">Return on Investment</p>
+    <h2 class="sec-title rv" style="text-align:center;">The math is simple.</h2>
+    <p class="sec-sub rv d1" style="text-align:center;margin:0.8rem auto 0;">Compare the early-adopter $500 install against the alternative.</p>
+
+    <div class="roi-grid">
+      <div class="glass glass-hover roi-card fa1 rv">
+        <span class="roi-num">$500</span>
+        <p class="roi-lbl">One-time installation<br>vs. $1,999+ for DIY hardware</p>
+      </div>
+      <div class="glass glass-hover roi-card fa2 rv d1">
+        <span class="roi-num">$0</span>
+        <p class="roi-lbl">Monthly fee before Dec 31, 2026<br>vs. $250/month standard rate</p>
+      </div>
+      <div class="glass glass-hover roi-card fa1 rv d2">
+        <span class="roi-num">$3,000</span>
+        <p class="roi-lbl">Saved in year one alone<br>vs. standard $250/month plan</p>
+      </div>
+      <div class="glass glass-hover roi-card fa2 rv d3">
+        <span class="roi-num">24/7</span>
+        <p class="roi-lbl">AI availability<br>vs. 9am–5pm with a PM</p>
       </div>
     </div>
   </div>
@@ -311,29 +426,28 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
   <div class="container">
     <p class="sec-label">Full Comparison</p>
     <h2 class="sec-title rv">Octo vs. the alternatives</h2>
-    <p class="sec-sub rv d1">Legacy tools were built for property managers. Octo is built for you.</p>
+    <p class="sec-sub rv d1">Legacy tools were built for property managers. Octo is built for owners.</p>
 
     <div class="compare-tbl glass rv d2">
       <table>
         <thead>
           <tr>
             <th style="padding-left:1.5rem;">Feature</th>
-            <th class="oc">🐙 Octo</th>
+            <th class="oc">🐙 Octo (Early)</th>
+            <th>DIY AI Setup</th>
             <th>Buildium</th>
-            <th>AppFolio</th>
             <th>Traditional PM</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Monthly cost /door</td><td style="color:var(--pink);font-weight:600;">$17</td><td style="color:var(--muted);">$40–90</td><td style="color:var(--muted);">$100–200</td><td style="color:var(--muted);">$80–150</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">AI-native platform</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">24/7 availability</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Maintenance auto-dispatch</td><td class="ck">✓</td><td class="no">~</td><td class="no">~</td><td class="no">✗</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Regulatory AI monitoring</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Predictive analytics</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup time</td><td style="color:var(--pink);">&lt; 5 min</td><td style="color:var(--muted);">Days</td><td style="color:var(--muted);">Weeks</td><td style="color:var(--muted);">Weeks</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">No PM required</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr style="border-bottom:none;"><td style="padding-left:1.5rem;color:var(--muted);">Scales without headcount</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup cost</td><td style="color:#4ade80;font-weight:600;">$500 once</td><td style="color:var(--muted);">$1,999+ hardware</td><td style="color:var(--muted);">$0 setup</td><td style="color:var(--muted);">$0 setup</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Monthly cost</td><td style="color:#4ade80;font-weight:600;">$0 (before '27)</td><td style="color:var(--muted);">$150–300+ /mo</td><td style="color:var(--muted);">$40–90 /mo</td><td style="color:var(--muted);">$80–150/door/mo</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">AI-native platform</td><td class="ck">✓</td><td class="no">DIY config</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">24/7 availability</td><td class="ck">✓</td><td class="no">Maybe</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Maintenance auto-dispatch</td><td class="ck">✓</td><td class="no">Build it yourself</td><td class="no">~</td><td class="no">✗</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Infrastructure managed</td><td class="ck">✓</td><td class="no">You are IT</td><td class="ck">✓</td><td class="no">N/A</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup time</td><td style="color:#4ade80;">&lt; 5 min</td><td style="color:var(--muted);">Weeks</td><td style="color:var(--muted);">Days</td><td style="color:var(--muted);">Weeks</td></tr>
+          <tr style="border-bottom:none;"><td style="padding-left:1.5rem;color:var(--muted);">No PM required</td><td class="ck">✓</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
         </tbody>
       </table>
     </div>
@@ -348,28 +462,28 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
 
     <div class="faq-list">
       <div class="glass faq-item rv" onclick="toggleFaq(this)">
-        <div class="faq-q">How does the 60-day free trial work?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">You get full access to all Octo features for 60 days with no credit card required. After 60 days it auto-converts to the Starter plan at $17/door/month. You can cancel any time before your trial ends with zero charges.</div>
+        <div class="faq-q">What exactly is the "$500 installation" and what does it cover?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">The $500 covers the one-time setup of your Octo AI agent: onboarding your properties, configuring workflows, connecting any integrations (bank accounts, vendor networks, tenant portals), and customising your agent preferences. After installation, your agent runs 24/7 with zero additional fees if you install before Dec 31, 2026.</div>
       </div>
       <div class="glass faq-item rv d1" onclick="toggleFaq(this)">
-        <div class="faq-q">Can I use Octo alongside my current property manager?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Yes. Many owners start by letting Octo handle one workflow (like maintenance or rent collection) while they wind down their PM relationship. Octo is designed to take over gradually or all at once — it's your call.</div>
+        <div class="faq-q">Why is the "before Dec 31, 2026" price so much better?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Early adopters help us validate the product and provide valuable feedback. In return, you lock in infrastructure costs at our early build cost and never pay a monthly subscription. This is a genuine, time-limited offer — once the window closes on Dec 31, 2026, the standard $500 + $250/month rate applies.</div>
       </div>
       <div class="glass faq-item rv d2" onclick="toggleFaq(this)">
-        <div class="faq-q">What if I only have 1–2 properties?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Octo works great for small landlords too. At $17/door/month you're still saving thousands compared to a traditional property manager. The platform scales from 1 door to 1,000+.</div>
+        <div class="faq-q">What happens to my agent after Dec 31, 2026 if I installed early?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Nothing changes. If you install before the deadline, you keep the early-adopter terms permanently — no monthly subscription, ever. Your agent continues running as normal. The deadline only affects new installations after Jan 1, 2027.</div>
       </div>
       <div class="glass faq-item rv d1" onclick="toggleFaq(this)">
-        <div class="faq-q">Is my data secure?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">Yes. Octo uses bank-grade encryption for all financial data, SOC 2 compliant infrastructure, and never sells your data to third parties. All documents are stored with end-to-end encryption.</div>
+        <div class="faq-q">Why not just host the AI myself to save money?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">You can — but the real cost adds up fast. A Mac Mini starts at $599, a Mac Studio at $1,999+. Add LLM API & token fees ($50–200+/month), electricity and internet ($100+/month), and the time you'll spend as your own IT department. With Octo, you get all of that managed for a one-time $500 installation fee — and zero ongoing infrastructure overhead.</div>
       </div>
       <div class="glass faq-item rv d2" onclick="toggleFaq(this)">
-        <div class="faq-q">What cities and states does Octo support?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">We're launching in New York City first (Manhattan, then expanding to Brooklyn, Queens, and the outer boroughs). California follows in 2027, with nationwide expansion through 2028–2029. Join our waitlist to be notified when we reach your market.</div>
+        <div class="faq-q">Is my data secure with Octo managing the infrastructure?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">Yes. Octo uses bank-grade encryption for all financial data, SOC 2 compliant infrastructure, and never sells your data to third parties. All documents are stored with end-to-end encryption. Our infrastructure is hardened and monitored 24/7 — so you don't have to be.</div>
       </div>
       <div class="glass faq-item rv d3" onclick="toggleFaq(this)">
-        <div class="faq-q">Do I stay in control, or does Octo make decisions for me?<span class="faq-arrow">↓</span></div>
-        <div class="faq-a">You're always in control. Octo handles routine tasks autonomously (maintenance dispatch, rent reminders, compliance monitoring), but you approve all major decisions — tenant selection, large repairs over your threshold, lease amendments, and more. You decide how much to delegate.</div>
+        <div class="faq-q">What cities and markets does Octo support?<span class="faq-arrow">↓</span></div>
+        <div class="faq-a">We're launching in New York City first (Manhattan, then expanding to all five boroughs). California follows in 2027, with nationwide expansion through 2028–2029. Join our waitlist to be notified when we reach your market.</div>
       </div>
     </div>
   </div>
@@ -378,10 +492,10 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
 <!-- CTA -->
 <div class="cta-banner">
   <div class="container">
-    <h2 class="rv">Start saving today.</h2>
-    <p class="rv d1">60-day free trial. No credit card. No contracts.<br>Set up in under 5 minutes per property.</p>
+    <h2 class="rv">The window closes Dec 31, 2026.</h2>
+    <p class="rv d1">Install now for $500 — no monthly fees ever.<br>After January 1, 2027, add $250/month to that.</p>
     <div class="cta-btns rv d2">
-      <a href="signup.html" class="btn-primary">Get Early Access</a>
+      <a href="index.html" class="btn-primary">Get Early Access</a>
       <a href="features.html" class="btn-ghost">Explore Features</a>
     </div>
   </div>
@@ -393,7 +507,7 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
     <ul class="foot-links">
       <li><a href="features.html">Features</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="signup.html">Sign Up</a></li>
+      <li><a href="index.html">Sign Up</a></li>
     </ul>
     <p class="foot-copy">© 2025 Octo. Your native-AI property management firm.</p>
   </div>
@@ -419,29 +533,17 @@ document.querySelectorAll('.glass-hover').forEach(card=>{
   });
 });
 
-function fmt(n){ if(n>=1000) return '$'+Math.round(n/100)*100..toLocaleString(); return '$'+n; }
-function calcSavings(){
-  const doors=+document.getElementById('door-slider').value;
-  document.getElementById('door-count').textContent=doors+' door'+(doors>1?'s':'');
-  const old=doors*120*12, neo=doors*17*12, saved=old-neo;
-  document.getElementById('old-cost').textContent=fmt(old);
-  document.getElementById('new-cost').textContent=fmt(neo);
-  document.getElementById('saved').textContent=fmt(saved);
-  document.getElementById('pct').textContent=Math.round((saved/old)*100)+'%';
-}
-calcSavings();
-
 function toggleFaq(el){
   const isOpen=el.classList.contains('open');
   document.querySelectorAll('.faq-item.open').forEach(f=>f.classList.remove('open'));
   if(!isOpen) el.classList.add('open');
 }
 
-/* Theme toggle */
+/* Theme toggle — light is default */
 (function(){
   const btn=document.getElementById('themeToggle');
   const root=document.documentElement;
-  let isLight=false;
+  let isLight=true;
   btn.addEventListener('click',()=>{ isLight=!isLight; root.classList.toggle('light',isLight); });
 })();
 </script>
