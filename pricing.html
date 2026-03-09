@@ -65,6 +65,36 @@
 :root.light .tl-node p  { color:rgba(8,6,14,.62); }
 :root.light .urgency-bar { background:rgba(8,6,14,.04); border-color:rgba(232,114,138,.2); }
 :root.light .urgency-text { color:rgba(8,6,14,.68); }
+:root.light .urgency-text strong { color:#08060e; }
+:root.light .deadline-pill { background:rgba(56,189,248,.15); border-color:rgba(56,189,248,.35); color:#0369a1; }
+/* Body animated bg in light mode */
+:root.light body::before {
+  background:
+    radial-gradient(ellipse 55% 50% at 15% 25%, rgba(232,114,138,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 55% at 85% 75%, rgba(140,70,180,0.04) 0%, transparent 60%),
+    linear-gradient(150deg, #f5f0e8 0%, #ede8df 100%) !important;
+}
+/* Light mode glass more opaque */
+:root.light .glass {
+  background: linear-gradient(135deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.60) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 4px 24px rgba(0,0,0,.08);
+}
+/* Light mode sidebar */
+:root.light .sidebar { background:rgba(245,240,232,.98); border-color:rgba(232,114,138,.2); }
+:root.light .sidebar a { color:#08060e; border-color:rgba(232,114,138,.12); }
+:root.light .sidebar a:hover { color:var(--pink); }
+/* Pricing card specifics */
+:root.light .pc-price { color:var(--pink); }
+:root.light .pc-deadline { color:rgba(8,6,14,.55); }
+:root.light .urgency-label { color:var(--pink); }
+/* FAQ in light mode */
+:root.light .faq-q { color:#08060e; }
+:root.light .faq-a { color:rgba(8,6,14,.68); }
+/* Table NO symbol */
+:root.light .no { color:rgba(8,6,14,.28); }
+/* ROI numbers */
+:root.light .roi-lbl { color:rgba(8,6,14,.65); }
+:root.light .roi-num { color:var(--pink); }
 
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; transition:background .35s,color .35s; }
@@ -144,33 +174,33 @@ section { padding:5rem 2rem; }
   padding:2.5rem 2rem; border-radius:var(--radius); position:relative; overflow:hidden;
 }
 .price-card.featured {
-  border-color:rgba(74,222,128,.38) !important;
-  background:linear-gradient(135deg,rgba(74,222,128,.06) 0%,rgba(74,222,128,.02) 100%) !important;
+  border-color:rgba(56,189,248,.38) !important;
+  background:linear-gradient(135deg,rgba(56,189,248,.06) 0%,rgba(56,189,248,.02) 100%) !important;
 }
 .price-card.featured::before {
   content:'✨ Early Adopter — Limited';
   position:absolute; top:1.2rem; right:1.2rem;
   font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
-  color:#3dba6c; background:rgba(74,222,128,.15);
-  border:1px solid rgba(74,222,128,.3); border-radius:50px;
+  color:#0ea5e9; background:rgba(56,189,248,.15);
+  border:1px solid rgba(56,189,248,.3); border-radius:50px;
   padding:.25rem .75rem;
 }
 .pc-label { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; }
 .pc-name { font-size:1.4rem; font-weight:700; color:var(--text); margin-bottom:.5rem; }
 .pc-price { font-size:3.2rem; font-weight:900; color:var(--pink); line-height:1; }
-.pc-price.green { color:#4ade80; }
+.pc-price.sky { color:#0ea5e9; }
 .pc-per { font-size:.82rem; color:var(--muted); margin:.3rem 0 .5rem; }
-.pc-deadline { font-size:.78rem; font-weight:700; color:#4ade80; margin-bottom:1.2rem; }
+.pc-deadline { font-size:.78rem; font-weight:700; color:#38bdf8; margin-bottom:1.2rem; }
 .pc-desc { font-size:.9rem; color:var(--muted); line-height:1.65; margin-bottom:1.8rem; }
 .pc-divider { height:1px; background:rgba(232,114,138,.12); margin:1.5rem 0; }
 .pc-features { list-style:none; display:flex; flex-direction:column; gap:.75rem; margin-bottom:2rem; }
 .pc-feature { display:flex; gap:.75rem; align-items:flex-start; font-size:.88rem; color:var(--muted); }
 .pc-check { color:var(--pink); font-size:1rem; flex-shrink:0; margin-top:.05rem; }
-.pc-check.grn { color:#4ade80; }
+.pc-check.grn { color:#38bdf8; }
 .btn-primary { display:block; text-align:center; padding:.9rem 2rem; background:var(--pink); color:#fff; border:none; border-radius:14px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; transition:transform .22s,box-shadow .22s; box-shadow:0 0 28px var(--pink-glow); }
 .btn-primary:hover { transform:translateY(-3px); box-shadow:0 8px 44px var(--pink-glow); }
-.btn-primary.green-btn { background:linear-gradient(135deg,#4ade80,#22c55e); box-shadow:0 0 28px rgba(74,222,128,.35); }
-.btn-primary.green-btn:hover { box-shadow:0 8px 44px rgba(74,222,128,.45); }
+.btn-primary.sky-btn { background:linear-gradient(135deg,#38bdf8,#0ea5e9); box-shadow:0 0 28px rgba(56,189,248,.45); color:#041424; }
+.btn-primary.sky-btn:hover { box-shadow:0 8px 44px rgba(56,189,248,.55); }
 .btn-outline { display:block; text-align:center; padding:.9rem 2rem; background:transparent; color:var(--text); border:1px solid var(--pink-border); border-radius:14px; font-family:var(--font); font-size:1rem; cursor:pointer; text-decoration:none; transition:background .22s,transform .22s; backdrop-filter:blur(10px); }
 .btn-outline:hover { background:rgba(232,114,138,.1); transform:translateY(-2px); }
 
@@ -183,7 +213,7 @@ section { padding:5rem 2rem; }
 }
 .timeline-track::before {
   content:''; position:absolute; top:20px; left:10%; right:10%; height:3px;
-  background:linear-gradient(90deg, rgba(74,222,128,.6), rgba(232,114,138,.6));
+  background:linear-gradient(90deg, rgba(56,189,248,.6), rgba(232,114,138,.6));
   border-radius:4px; z-index:0;
 }
 .tl-node { flex:1; display:flex; flex-direction:column; align-items:center; gap:.65rem; position:relative; z-index:1; }
@@ -194,12 +224,12 @@ section { padding:5rem 2rem; }
   border:2.5px solid;
   box-shadow:0 0 18px rgba(0,0,0,.2);
 }
-.tl-dot.now { background:rgba(74,222,128,.15); border-color:#4ade80; color:#4ade80; box-shadow:0 0 18px rgba(74,222,128,.3); }
+.tl-dot.now { background:rgba(56,189,248,.15); border-color:#38bdf8; color:#38bdf8; box-shadow:0 0 18px rgba(56,189,248,.3); }
 .tl-dot.after { background:rgba(232,114,138,.1); border-color:var(--pink); color:var(--pink); }
 .tl-node h4 { font-size:.9rem; font-weight:700; color:var(--text); text-align:center; line-height:1.3; }
 .tl-node p { font-size:.78rem; color:var(--muted); text-align:center; line-height:1.45; }
 .tl-node .badge { font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.2rem .65rem; border-radius:50px; font-weight:700; }
-.tl-node .badge.early { background:rgba(74,222,128,.18); color:#3dba6c; border:1px solid rgba(74,222,128,.3); }
+.tl-node .badge.early { background:rgba(56,189,248,.18); color:#0ea5e9; border:1px solid rgba(56,189,248,.3); }
 .tl-node .badge.std   { background:rgba(232,114,138,.12); color:var(--pink); border:1px solid rgba(232,114,138,.25); }
 
 /* Comparison table */
@@ -318,11 +348,11 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
       <div class="glass glass-hover price-card featured fa1 rv">
         <div class="pc-label">Limited — before Dec 31, 2026</div>
         <div class="pc-name">Early Adopter</div>
-        <div class="pc-price green">$500</div>
+        <div class="pc-price sky">$500</div>
         <div class="pc-per">one-time installation per agent</div>
         <div class="pc-deadline">✓ No monthly subscription — ever</div>
         <div class="pc-desc">Pay once. Octo runs your property management AI indefinitely with no recurring charges. Lock in this deal before the window closes.</div>
-        <a href="index.html" class="btn-primary green-btn">Reserve My Spot →</a>
+        <a href="index.html" class="btn-primary sky-btn">Reserve My Spot →</a>
         <div class="pc-divider"></div>
         <ul class="pc-features">
           <li class="pc-feature"><span class="pc-check grn">✓</span>Full AI property management (all 8 workflows)</li>
@@ -440,13 +470,13 @@ footer { background:#04040a; border-top:1px solid rgba(232,114,138,.1); padding:
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup cost</td><td style="color:#4ade80;font-weight:600;">$500 once</td><td style="color:var(--muted);">$1,999+ hardware</td><td style="color:var(--muted);">$0 setup</td><td style="color:var(--muted);">$0 setup</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Monthly cost</td><td style="color:#4ade80;font-weight:600;">$0 (before '27)</td><td style="color:var(--muted);">$150–300+ /mo</td><td style="color:var(--muted);">$40–90 /mo</td><td style="color:var(--muted);">$80–150/door/mo</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup cost</td><td style="color:#38bdf8;font-weight:600;">$500 once</td><td style="color:var(--muted);">$1,999+ hardware</td><td style="color:var(--muted);">$0 setup</td><td style="color:var(--muted);">$0 setup</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Monthly cost</td><td style="color:#38bdf8;font-weight:600;">$0 (before '27)</td><td style="color:var(--muted);">$150–300+ /mo</td><td style="color:var(--muted);">$40–90 /mo</td><td style="color:var(--muted);">$80–150/door/mo</td></tr>
           <tr><td style="padding-left:1.5rem;color:var(--muted);">AI-native platform</td><td class="ck">✓</td><td class="no">DIY config</td><td class="no">✗</td><td class="no">✗</td></tr>
           <tr><td style="padding-left:1.5rem;color:var(--muted);">24/7 availability</td><td class="ck">✓</td><td class="no">Maybe</td><td class="no">✗</td><td class="no">✗</td></tr>
           <tr><td style="padding-left:1.5rem;color:var(--muted);">Maintenance auto-dispatch</td><td class="ck">✓</td><td class="no">Build it yourself</td><td class="no">~</td><td class="no">✗</td></tr>
           <tr><td style="padding-left:1.5rem;color:var(--muted);">Infrastructure managed</td><td class="ck">✓</td><td class="no">You are IT</td><td class="ck">✓</td><td class="no">N/A</td></tr>
-          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup time</td><td style="color:#4ade80;">&lt; 5 min</td><td style="color:var(--muted);">Weeks</td><td style="color:var(--muted);">Days</td><td style="color:var(--muted);">Weeks</td></tr>
+          <tr><td style="padding-left:1.5rem;color:var(--muted);">Setup time</td><td style="color:#38bdf8;">&lt; 5 min</td><td style="color:var(--muted);">Weeks</td><td style="color:var(--muted);">Days</td><td style="color:var(--muted);">Weeks</td></tr>
           <tr style="border-bottom:none;"><td style="padding-left:1.5rem;color:var(--muted);">No PM required</td><td class="ck">✓</td><td class="ck">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
         </tbody>
       </table>
