@@ -127,10 +127,31 @@ nav {
 .ph-title { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.15; }
 .ph-sub { font-size: 1rem; color: var(--muted); margin: 1rem auto 0; max-width: 520px; line-height: 1.72; }
 
-/* ── Section nav tabs ── */
+/* ── Section nav tabs — sticky ribbon ── */
 .wf-nav {
-  display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap;
-  padding: 0 2rem 3rem; position: sticky; top: 64px; z-index: 100;
+  display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap;
+  padding: .7rem 2rem .75rem;
+  position: sticky; top: 62px; z-index: 200;
+  /* ribbon pseudo-element extends the bg to page edges */
+}
+.wf-nav::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -200vw; right: -200vw;
+  background: rgba(245,240,232,0.94);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 3px 18px rgba(0,0,0,0.07);
+  z-index: -1;
+}
+:root:not(.light) .wf-nav::before {
+  background: rgba(8,6,14,0.94);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 3px 18px rgba(0,0,0,0.35);
 }
 .wf-tab {
   padding: .45rem 1.1rem;

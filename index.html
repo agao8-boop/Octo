@@ -1493,13 +1493,9 @@ function handleModalSubmit(e){
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
-  // Send to Google Sheets
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, source: 'homepage_modal', timestamp: new Date().toISOString() })
-  }).catch(()=>{}); // no-cors means we can't read response — that's fine
+  // Send to Google Sheets via GET (avoids no-cors POST body/redirect issues)
+  const params = new URLSearchParams({ email: email, source: 'homepage_modal', timestamp: new Date().toISOString() });
+  fetch(SHEETS_URL + '?' + params.toString(), { mode: 'no-cors' }).catch(()=>{});
 
   setTimeout(()=>{
     document.getElementById('modal-form-content').style.display = 'none';

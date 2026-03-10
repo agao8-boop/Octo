@@ -399,20 +399,16 @@ function handleSubmit(e){
   btn.textContent = 'Sending…';
 
   const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxuuGoDRfzxdUdZekGAAjFFAeZARCr1xSBI4L9Ov3rZY3koqwi_T5050hLZ7ixrlwXr/exec';
-  const formData = {
-    email: email,
-    units: document.getElementById('doors').value,
-    pmSituation: document.getElementById('pm').value,
-    painPoint: document.getElementById('challenge').value.trim(),
-    source: 'signup_page',
-    timestamp: new Date().toISOString()
-  };
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-  }).catch(()=>{});
+  // Use GET + URLSearchParams: avoids no-cors POST body/redirect issues
+  const params = new URLSearchParams({
+    email:       email,
+    units:       document.getElementById('doors').value || '',
+    pmSituation: document.getElementById('pm').value || '',
+    painPoint:   document.getElementById('challenge').value.trim() || '',
+    source:      'signup_page',
+    timestamp:   new Date().toISOString()
+  });
+  fetch(SHEETS_URL + '?' + params.toString(), { mode: 'no-cors' }).catch(()=>{});
 
   setTimeout(()=>{
     document.getElementById('form-content').style.display='none';
