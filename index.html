@@ -535,19 +535,20 @@ section { padding: 6rem 2rem; }
   cursor: default;
 }
 
-/* Dark mode chassis */
+/* Dark mode chassis — visible silver rim against dark bg */
 :root:not(.light) .iphone {
   background: linear-gradient(162deg,
-    #2c2c2e 0%, #1c1c1e 20%, #2a2a2c 40%,
-    #1a1a1c 60%, #252527 80%, #1e1e20 100%);
+    #3c3c3e 0%, #2a2a2c 14%, #3a3a3c 28%, #262628 42%,
+    #363638 58%, #2e2e30 72%, #343436 88%, #2c2c2e 100%);
   box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.12),
-    inset 0 -2px 0 rgba(0,0,0,0.7),
-    inset 2px 0 0 rgba(255,255,255,0.08),
-    inset -2px 0 0 rgba(0,0,0,0.5),
-    0 0 0 1px rgba(0,0,0,0.8),
-    0 48px 100px rgba(0,0,0,0.72),
-    0 24px 48px rgba(0,0,0,0.45),
+    inset 0 2px 0 rgba(255,255,255,0.22),
+    inset 0 -2px 0 rgba(0,0,0,0.70),
+    inset 2px 0 0 rgba(255,255,255,0.14),
+    inset -2px 0 0 rgba(0,0,0,0.50),
+    0 0 0 1.5px rgba(255,255,255,0.30),
+    0 0 0 5px rgba(255,255,255,0.05),
+    0 48px 100px rgba(0,0,0,0.70),
+    0 24px 48px rgba(0,0,0,0.42),
     0 0 80px rgba(232,114,138,0.08);
 }
 
@@ -576,16 +577,16 @@ section { padding: 6rem 2rem; }
   box-shadow: 2px 0 4px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
-/* Dark mode buttons */
+/* Dark mode buttons — slightly lighter so they're visible */
 :root:not(.light) .iphone-btn-vol1,
 :root:not(.light) .iphone-btn-vol2,
 :root:not(.light) .iphone-btn-mute,
 :root:not(.light) .iphone-btn-power {
-  background: linear-gradient(90deg, #2a2a2c 0%, #3a3a3c 50%, #2a2a2c 100%);
-  box-shadow: -2px 0 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  background: linear-gradient(90deg, #505052 0%, #646466 50%, #505052 100%);
+  box-shadow: -2px 0 4px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.20);
 }
 :root:not(.light) .iphone-btn-power {
-  box-shadow: 2px 0 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow: 2px 0 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
 /* inner screen border */
